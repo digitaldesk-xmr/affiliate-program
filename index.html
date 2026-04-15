@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programma Affiliazione | Guadagna con noi</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Affiliate<span style="color:#2a5298">Pro</span></div>
+        <div class="nav-links">
+            <a href="#features">Vantaggi</a>
+            <a href="#register">Registrati</a>
+            <a href="affiliate-dashboard.html" class="btn-secondary" style="padding: 8px 20px;">Accedi</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="hero">
+            <h1>Guadagna con il nostro<br>programma affiliati</h1>
+            <p>Commissioni fino al 20% • Cookie 30 giorni • Pagamenti puntuali</p>
+            <a href="#register" class="cta-button">Inizia ora →</a>
+        </div>
+
+        <div id="features" class="features">
+            <div class="feature-card">
+                <div class="feature-icon">💰</div>
+                <h3>Commissioni generose</h3>
+                <p>Fino al 20% su ogni vendita generata. Più vendi, più guadagni.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔗</div>
+                <h3>Link personalizzati</h3>
+                <p>Crea link per ogni prodotto, pagina o offerta speciale.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Dashboard in tempo reale</h3>
+                <p>Monitora click, conversioni e guadagni in un colpo d'occhio.</p>
+            </div>
+        </div>
+
+        <div id="register" class="registration-form">
+            <h2 class="text-center">Diventa affiliato</h2>
+            <p class="text-center" style="margin-bottom: 24px; color: #4a627a;">Registrati gratuitamente in 30 secondi</p>
+            <form id="affiliate-registration">
+                <div class="form-group">
+                    <input type="text" name="name" placeholder="Nome e cognome" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="website" placeholder="Il tuo sito/canale (opzionale)">
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">Registrati →</button>
+            </form>
+            <div id="register-message" style="margin-top: 20px;"></div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('affiliate-registration').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                website: formData.get('website')
+            };
+            
+            // Mock: sostituisci con la tua API reale
+            // const response = await fetch('https://api.tudominio.com/register-affiliate', {...});
+            
+            // Simulazione risposta
+            setTimeout(() => {
+                document.getElementById('register-message').innerHTML = 
+                    '<div class="alert alert-success">✅ Registrazione completata! Il tuo codice affiliato è: <strong>TEST123</strong><br>Accedi alla <a href="affiliate-dashboard.html">dashboard</a></div>';
+                e.target.reset();
+            }, 500);
+        });
+    </script>
+</body>
+</html>
