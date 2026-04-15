@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Affiliato</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Affiliate<span style="color:#2a5298">Pro</span></div>
+        <div class="nav-links">
+            <span id="userName" style="color:#2a5298; font-weight:500;">👋 Ciao, Affiliato</span>
+            <a href="index.html">Logout</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2 class="text-center" style="margin: 40px 0 20px;">La tua dashboard</h2>
+        
+        <div class="dashboard-stats">
+            <div class="stat-card">
+                <h3>Click totali</h3>
+                <div class="stat-value" id="total-clicks">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Conversioni</h3>
+                <div class="stat-value" id="total-conversions">0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Guadagni</h3>
+                <div class="stat-value" id="total-earnings">€ 0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Commissione</h3>
+                <div class="stat-value" id="commission-rate">0%</div>
+            </div>
+        </div>
+
+        <div class="link-generator">
+            <h3>🔗 Crea un nuovo link</h3>
+            <div class="input-group">
+                <input type="url" id="destination-url" placeholder="URL di destinazione (es. /prodotto)" value="https://tudominio.com/prodotto">
+                <input type="text" id="custom-slug" placeholder="Slug personalizzato (opzionale)">
+                <button class="btn" onclick="generateLink()">Genera link</button>
+            </div>
+            <div id="generated-link" style="display:none;">
+                <span>📎 Il tuo link affiliato:</span>
+                <input type="text" id="affiliate-link" readonly>
+                <button class="btn-secondary" onclick="copyLink()">Copia</button>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <h3>📈 I tuoi ultimi click</h3>
+            <table>
+                <thead>
+                    <tr><th>Data</th><th>Link</th><th>IP</th><th>Conversione?</th></tr>
+                </thead>
+                <tbody id="clicks-table">
+                    <tr><td colspan="4" class="text-center">Caricamento...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = window.location.origin + '/api';
+        let affiliateId = null;
+
+        async function loadStats() {
+            if (!affiliateId) return;
+            const res = await fetch(`${API_BASE}/affiliate-stats?affiliateId=${affiliateId}`);
+            const data = await res.json();
+            document.getElementById('total-clicks').innerText = data.clicks || 0;
+            document.getElementById('total-conversions').innerText = data.conversions?.[0]?.count || 0;
+            document.getElementById('total-earnings').innerText = '€ ' + (data.total_earnings || 0).toFixed(2);
+            document.getElementById('commission-rate').innerText = (data.commission_rate || 0) + '%';
+        }
+
+        async function generateLink() {
+            const destinationUrl = document.getElementById('destination-url').value;
+            const customSlug = document.getElementById('custom-slug').value;
+            const res = await fetch(`${API_BASE}/generate-link`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ affiliateId, destinationUrl, customSlug })
+            });
+            const result = await res.json();
+            if (result.success) {
+                document.getElementById('affiliate-link').value = result.affiliateUrl;
+                document.getElementById('generated-link').style.display = 'flex';
+            } else {
+                alert('Errore: ' + result.error);
+            }
+        }
+
+        function copyLink() {
+            const linkInput = document.getElementById('affiliate-link');
+            linkInput.select();
+            document.execCommand('copy');
+            alert('Link copiato negli appunti!');
+        }
+
+        // Simulazione: in realtà dovresti passare l'ID dalla sessione o da un parametro URL
+        // Per demo, prendiamo un ID fisso (lo sostituirai con la tua logica)
+        (async () => {
+            // Qui dovresti recuperare l'affiliateId dal localStorage o da un cookie
+            affiliateId = 'TUO-AFFILIATE-ID'; // Sostituisci con logica reale
+            await loadStats();
+        })();
+    </script>
+</body>
+</html>
