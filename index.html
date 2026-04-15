@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Programma Affiliazione | Guadagna con noi</title>
+    <title>Dashboard Affiliato</title>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
 </head>
@@ -11,76 +11,105 @@
     <nav class="navbar">
         <div class="logo">Affiliate<span style="color:#2a5298">Pro</span></div>
         <div class="nav-links">
-            <a href="#features">Vantaggi</a>
-            <a href="#register">Registrati</a>
-            <a href="affiliate-dashboard.html" class="btn-secondary" style="padding: 8px 20px;">Accedi</a>
+            <span id="userName" style="color:#2a5298; font-weight:500;">👋 Ciao, Affiliato</span>
+            <a href="index.html">Logout</a>
         </div>
     </nav>
 
     <div class="container">
-        <div class="hero">
-            <h1>Guadagna con il nostro<br>programma affiliati</h1>
-            <p>Commissioni fino al 20% • Cookie 30 giorni • Pagamenti puntuali</p>
-            <a href="#register" class="cta-button">Inizia ora →</a>
-        </div>
-
-        <div id="features" class="features">
-            <div class="feature-card">
-                <div class="feature-icon">💰</div>
-                <h3>Commissioni generose</h3>
-                <p>Fino al 20% su ogni vendita generata. Più vendi, più guadagni.</p>
+        <h2 class="text-center" style="margin: 40px 0 20px;">La tua dashboard</h2>
+        
+        <div class="dashboard-stats">
+            <div class="stat-card">
+                <h3>Click totali</h3>
+                <div class="stat-value" id="total-clicks">0</div>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon">🔗</div>
-                <h3>Link personalizzati</h3>
-                <p>Crea link per ogni prodotto, pagina o offerta speciale.</p>
+            <div class="stat-card">
+                <h3>Conversioni</h3>
+                <div class="stat-value" id="total-conversions">0</div>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon">📊</div>
-                <h3>Dashboard in tempo reale</h3>
-                <p>Monitora click, conversioni e guadagni in un colpo d'occhio.</p>
+            <div class="stat-card">
+                <h3>Guadagni</h3>
+                <div class="stat-value" id="total-earnings">€ 0</div>
+            </div>
+            <div class="stat-card">
+                <h3>Commissione</h3>
+                <div class="stat-value" id="commission-rate">0%</div>
             </div>
         </div>
 
-        <div id="register" class="registration-form">
-            <h2 class="text-center">Diventa affiliato</h2>
-            <p class="text-center" style="margin-bottom: 24px; color: #4a627a;">Registrati gratuitamente in 30 secondi</p>
-            <form id="affiliate-registration">
-                <div class="form-group">
-                    <input type="text" name="name" placeholder="Nome e cognome" required>
-                </div>
-                <div class="form-group">
-                    <input type="email" name="email" placeholder="Email" required>
-                </div>
-                <div class="form-group">
-                    <input type="text" name="website" placeholder="Il tuo sito/canale (opzionale)">
-                </div>
-                <button type="submit" class="btn" style="width: 100%;">Registrati →</button>
-            </form>
-            <div id="register-message" style="margin-top: 20px;"></div>
+        <div class="link-generator">
+            <h3>🔗 Crea un nuovo link</h3>
+            <div class="input-group">
+                <input type="url" id="destination-url" placeholder="URL di destinazione (es. /prodotto)" value="https://tudominio.com/prodotto">
+                <input type="text" id="custom-slug" placeholder="Slug personalizzato (opzionale)">
+                <button class="btn" onclick="generateLink()">Genera link</button>
+            </div>
+            <div id="generated-link" style="display:none;">
+                <span>📎 Il tuo link affiliato:</span>
+                <input type="text" id="affiliate-link" readonly>
+                <button class="btn-secondary" onclick="copyLink()">Copia</button>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <h3>📈 I tuoi ultimi click</h3>
+            <table>
+                <thead>
+                    <tr><th>Data</th><th>Link</th><th>IP</th><th>Conversione?</th></tr>
+                </thead>
+                <tbody id="clicks-table">
+                    <tr><td colspan="4" class="text-center">Caricamento...</td></tr>
+                </tbody>
+            </table>
         </div>
     </div>
 
     <script>
-        document.getElementById('affiliate-registration').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const formData = new FormData(e.target);
-            const data = {
-                name: formData.get('name'),
-                email: formData.get('email'),
-                website: formData.get('website')
-            };
-            
-            // Mock: sostituisci con la tua API reale
-            // const response = await fetch('https://api.tudominio.com/register-affiliate', {...});
-            
-            // Simulazione risposta
-            setTimeout(() => {
-                document.getElementById('register-message').innerHTML = 
-                    '<div class="alert alert-success">✅ Registrazione completata! Il tuo codice affiliato è: <strong>TEST123</strong><br>Accedi alla <a href="affiliate-dashboard.html">dashboard</a></div>';
-                e.target.reset();
-            }, 500);
-        });
+        const API_BASE = window.location.origin + '/api';
+        let affiliateId = null;
+
+        async function loadStats() {
+            if (!affiliateId) return;
+            const res = await fetch(`${API_BASE}/affiliate-stats?affiliateId=${affiliateId}`);
+            const data = await res.json();
+            document.getElementById('total-clicks').innerText = data.clicks || 0;
+            document.getElementById('total-conversions').innerText = data.conversions?.[0]?.count || 0;
+            document.getElementById('total-earnings').innerText = '€ ' + (data.total_earnings || 0).toFixed(2);
+            document.getElementById('commission-rate').innerText = (data.commission_rate || 0) + '%';
+        }
+
+        async function generateLink() {
+            const destinationUrl = document.getElementById('destination-url').value;
+            const customSlug = document.getElementById('custom-slug').value;
+            const res = await fetch(`${API_BASE}/generate-link`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ affiliateId, destinationUrl, customSlug })
+            });
+            const result = await res.json();
+            if (result.success) {
+                document.getElementById('affiliate-link').value = result.affiliateUrl;
+                document.getElementById('generated-link').style.display = 'flex';
+            } else {
+                alert('Errore: ' + result.error);
+            }
+        }
+
+        function copyLink() {
+            const linkInput = document.getElementById('affiliate-link');
+            linkInput.select();
+            document.execCommand('copy');
+            alert('Link copiato negli appunti!');
+        }
+
+        // Simulazione: in realtà dovresti passare l'ID dalla sessione o da un parametro URL
+        // Per demo, prendiamo un ID fisso (lo sostituirai con la tua logica)
+        (async () => {
+            // Qui dovresti recuperare l'affiliateId dal localStorage o da un cookie
+            affiliateId = 'TUO-AFFILIATE-ID'; // Sostituisci con logica reale
+            await loadStats();
+        })();
     </script>
 </body>
 </html>
