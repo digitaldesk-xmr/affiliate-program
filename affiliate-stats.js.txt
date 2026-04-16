@@ -1,0 +1,37 @@
+import { supabase } from './supabase-client.js';
+
+export default async function handler(req, res) {
+    const { affiliateId } = req.query;
+    if (!affiliateId) return res.status(400).json({ error: 'affiliateId required' });
+
+    const { data: affiliate, error: affError } = await supabase
+        .from('affiliates')
+        .select('total_earnings, paid_earnings, commission_rate, status, crypto_wallet')
+        .eq('id', affiliateId)
+        .single();
+
+    if (affError) return res.status(500).json({ error: affError.message });
+
+    const { count: clicksCount } = await supabase
+        .from('clicks')
+        .select('*', { count: 'exact', head: true })
+        .eq('affiliate_id', affiliateId);
+
+    const { data: conversions, error: convError } = await supabase
+        .from('conversions')
+        .select('amount, commission, status')
+        .eq('affiliate_id', affiliateId);
+
+    const approvedConversions = conversions?.filter(c => c.status === 'approved') || [];
+    const totalApprovedCommission = approvedConversions.reduce((sum, c) => sum + c.commission, 0);
+
+    res.json({
+        total_clicks: clicksCount || 0,
+        total_conversions: conversions?.length || 0,
+        total_earnings: affiliate.total_earnings || 0,
+        pending_earnings: totalApprovedCommission - (affiliate.paid_earnings || 0),
+        commission_rate: affiliate.commission_rate,
+        crypto_wallet: affiliate.crypto_wallet,
+        status: affiliate.status
+    });
+}
