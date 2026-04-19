@@ -6,26 +6,16 @@
     <title>Programma Affiliazione | Guadagna con noi</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        /* ========== RESET & BASE ========== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: 'Inter', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: #1a1a2e;
             line-height: 1.5;
             min-height: 100vh;
         }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 24px;
-        }
-
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
         h1 {
             font-size: 3.5rem;
             font-weight: 800;
@@ -35,7 +25,6 @@
             color: transparent;
             margin-bottom: 1rem;
         }
-
         h2 {
             font-size: 2.2rem;
             font-weight: 700;
@@ -45,14 +34,12 @@
             color: transparent;
             margin-bottom: 1.5rem;
         }
-
         h3 {
             font-size: 1.5rem;
             font-weight: 600;
             margin-bottom: 1rem;
             color: #1e3c72;
         }
-
         .btn, .cta-button {
             display: inline-block;
             background: linear-gradient(135deg, #667eea, #764ba2);
@@ -67,24 +54,18 @@
             font-size: 1rem;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
-
         .btn:hover, .cta-button:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 25px rgba(0,0,0,0.3);
             background: linear-gradient(135deg, #764ba2, #667eea);
         }
-
         .btn-secondary {
             background: rgba(255,255,255,0.2);
             backdrop-filter: blur(10px);
             color: white;
             border: 1px solid rgba(255,255,255,0.3);
         }
-
-        .btn-secondary:hover {
-            background: rgba(255,255,255,0.3);
-        }
-
+        .btn-secondary:hover { background: rgba(255,255,255,0.3); }
         .hero {
             text-align: center;
             padding: 80px 40px;
@@ -93,20 +74,13 @@
             margin: 40px 0;
             box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
         }
-
-        .hero p {
-            font-size: 1.3rem;
-            color: #4a5568;
-            margin-bottom: 2rem;
-        }
-
+        .hero p { font-size: 1.3rem; color: #4a5568; margin-bottom: 2rem; }
         .features {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
             margin: 60px 0;
         }
-
         .feature-card {
             background: rgba(255,255,255,0.95);
             padding: 35px 25px;
@@ -115,18 +89,12 @@
             transition: all 0.3s;
             box-shadow: 0 20px 35px -10px rgba(0,0,0,0.1);
         }
-
         .feature-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 30px 45px -12px rgba(0,0,0,0.2);
             background: white;
         }
-
-        .feature-icon {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-        }
-
+        .feature-icon { font-size: 3.5rem; margin-bottom: 1rem; }
         .registration-form {
             background: rgba(255,255,255,0.95);
             padding: 40px;
@@ -134,11 +102,7 @@
             margin-bottom: 40px;
             box-shadow: 0 20px 40px -12px rgba(0,0,0,0.15);
         }
-
-        .form-group {
-            margin-bottom: 24px;
-        }
-
+        .form-group { margin-bottom: 24px; }
         input {
             width: 100%;
             padding: 16px 20px;
@@ -148,13 +112,11 @@
             transition: all 0.3s;
             background: white;
         }
-
         input:focus {
             outline: none;
             border-color: #667eea;
             box-shadow: 0 0 0 3px rgba(102,126,234,0.2);
         }
-
         .navbar {
             background: rgba(255,255,255,0.95);
             backdrop-filter: blur(10px);
@@ -169,7 +131,6 @@
             top: 0;
             z-index: 100;
         }
-
         .logo {
             font-size: 1.8rem;
             font-weight: 800;
@@ -178,46 +139,79 @@
             background-clip: text;
             color: transparent;
         }
-
         .nav-links {
             display: flex;
             gap: 30px;
             align-items: center;
+            flex-wrap: wrap;
         }
-
         .nav-links a {
             text-decoration: none;
             color: #4a5568;
             font-weight: 500;
             transition: color 0.3s;
         }
-
-        .nav-links a:hover {
-            color: #667eea;
+        .nav-links a:hover { color: #667eea; }
+        .language-selector { display: flex; gap: 8px; flex-wrap: wrap; }
+        .lang-btn {
+            background: rgba(0,0,0,0.1);
+            border: none;
+            border-radius: 30px;
+            padding: 5px 12px;
+            cursor: pointer;
+            transition: all 0.2s;
         }
-
+        .lang-btn:hover { background: rgba(0,0,0,0.2); transform: scale(1.05); }
         .alert {
             padding: 16px 20px;
             border-radius: 20px;
             margin-bottom: 20px;
         }
-
         .alert-success {
             background: linear-gradient(135deg, #d1fae5, #a7f3d0);
             color: #065f46;
             border-left: 4px solid #10b981;
         }
-
         .alert-error {
             background: linear-gradient(135deg, #fee2e2, #fecaca);
             color: #991b1b;
             border-left: 4px solid #ef4444;
         }
-
-        .text-center {
-            text-align: center;
+        .text-center { text-align: center; }
+        /* Cookie Banner */
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.9);
+            color: white;
+            padding: 15px 20px;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(255,255,255,0.2);
         }
-
+        .cookie-banner-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .cookie-banner p { margin: 0; font-size: 0.9rem; flex: 1; }
+        .btn-small {
+            padding: 8px 20px;
+            font-size: 0.85rem;
+            border-radius: 30px;
+            cursor: pointer;
+            border: none;
+            background: #667eea;
+            color: white;
+        }
+        .btn-small.btn-secondary { background: transparent; border: 1px solid white; }
+        body[dir="rtl"] { text-align: right; }
         @media (max-width: 768px) {
             h1 { font-size: 2rem; }
             h2 { font-size: 1.5rem; }
@@ -225,16 +219,11 @@
             .features { grid-template-columns: 1fr; }
             .navbar { flex-direction: column; text-align: center; }
         }
-
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
-        .feature-card, .hero {
-            animation: fadeInUp 0.6s ease-out forwards;
-        }
-
+        .feature-card, .hero { animation: fadeInUp 0.6s ease-out forwards; }
         .feature-card:nth-child(2) { animation-delay: 0.2s; }
         .feature-card:nth-child(3) { animation-delay: 0.4s; }
     </style>
@@ -243,57 +232,152 @@
     <nav class="navbar">
         <div class="logo">Affiliate<span style="color:#2a5298">Pro</span></div>
         <div class="nav-links">
-            <a href="#features">Vantaggi</a>
-            <a href="#register">Registrati</a>
-            <a href="affiliate-dashboard.html" class="btn-secondary" style="padding: 8px 20px;">Accedi</a>
+            <a href="#features" data-i18n="nav_benefits">Vantaggi</a>
+            <a href="#register" data-i18n="nav_register">Registrati</a>
+            <a href="affiliate-dashboard.html" class="btn-secondary" style="padding: 8px 20px;" data-i18n="nav_login">Accedi</a>
+            <div class="language-selector">
+                <button onclick="setLanguage('it')" class="lang-btn">🇮🇹 IT</button>
+                <button onclick="setLanguage('en')" class="lang-btn">🇬🇧 EN</button>
+                <!-- Aggiungi qui altre lingue -->
+            </div>
         </div>
     </nav>
 
     <div class="container">
         <div class="hero">
-            <h1>Guadagna con il nostro<br>programma affiliati</h1>
-            <p>Commissioni fino al 20% • Cookie 30 giorni • Pagamenti in criptovalute</p>
-            <a href="#register" class="cta-button">Inizia ora →</a>
+            <h1 data-i18n="hero_title">Guadagna con il nostro programma affiliati</h1>
+            <p data-i18n="hero_subtitle">Commissioni fino al 20% • Cookie 30 giorni • Pagamenti in criptovalute</p>
+            <a href="#register" class="cta-button" data-i18n="hero_cta">Inizia ora →</a>
         </div>
 
         <div id="features" class="features">
-            <div class="feature-card">
-                <div class="feature-icon">💰</div>
-                <h3>Commissioni generose</h3>
-                <p>Fino al 20% su ogni vendita generata. Più vendi, più guadagni.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🔗</div>
-                <h3>Link personalizzati</h3>
-                <p>Crea link per ogni prodotto, pagina o offerta speciale.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">📊</div>
-                <h3>Dashboard in tempo reale</h3>
-                <p>Monitora click, conversioni e guadagni in un colpo d'occhio.</p>
-            </div>
+            <div class="feature-card"><div class="feature-icon">💰</div><h3 data-i18n="feat_commission_title">Commissioni generose</h3><p data-i18n="feat_commission_desc">Fino al 20% su ogni vendita generata. Più vendi, più guadagni.</p></div>
+            <div class="feature-card"><div class="feature-icon">🔗</div><h3 data-i18n="feat_links_title">Link personalizzati</h3><p data-i18n="feat_links_desc">Crea link per ogni prodotto, pagina o offerta speciale.</p></div>
+            <div class="feature-card"><div class="feature-icon">📊</div><h3 data-i18n="feat_dashboard_title">Dashboard in tempo reale</h3><p data-i18n="feat_dashboard_desc">Monitora click, conversioni e guadagni in un colpo d'occhio.</p></div>
         </div>
 
         <div id="register" class="registration-form">
-            <h2 class="text-center">Diventa affiliato</h2>
-            <p class="text-center" style="margin-bottom: 24px; color: #4a627a;">Registrati gratuitamente in 30 secondi</p>
+            <h2 class="text-center" data-i18n="reg_title">Diventa affiliato</h2>
+            <p class="text-center" style="margin-bottom: 24px; color: #4a627a;" data-i18n="reg_subtitle">Registrati gratuitamente in 30 secondi</p>
             <form id="affiliate-registration">
-                <div class="form-group">
-                    <input type="text" name="name" placeholder="Nome e cognome" required>
-                </div>
-                <div class="form-group">
-                    <input type="email" name="email" placeholder="Email" required>
-                </div>
-                <div class="form-group">
-                    <input type="text" name="crypto_wallet" placeholder="Indirizzo portafoglio crypto (USDT/BTC/ETH) - opzionale">
-                </div>
-                <button type="submit" class="btn" style="width: 100%;">Registrati →</button>
+                <div class="form-group"><input type="text" name="name" placeholder="Nome e cognome" data-i18n="reg_name" required></div>
+                <div class="form-group"><input type="email" name="email" placeholder="Email" data-i18n="reg_email" required></div>
+                <div class="form-group"><input type="text" name="crypto_wallet" placeholder="Indirizzo portafoglio crypto (USDT/BTC/ETH)" data-i18n="reg_wallet"></div>
+                <button type="submit" class="btn" style="width: 100%;" data-i18n="reg_button">Registrati →</button>
             </form>
             <div id="register-message" style="margin-top: 20px;"></div>
         </div>
     </div>
 
+    <div id="cookie-banner" class="cookie-banner" style="display: none;">
+        <div class="cookie-banner-content">
+            <p data-i18n="cookie_text">Utilizziamo cookie per tracciare i clic degli affiliati e attribuire le commissioni. Continuando a navigare accetti l'uso dei cookie.</p>
+            <button id="accept-cookies" class="btn-small" data-i18n="cookie_accept">Accetta</button>
+            <button id="decline-cookies" class="btn-small btn-secondary" data-i18n="cookie_decline">Rifiuta</button>
+        </div>
+    </div>
+
     <script>
+        // ========== TRADUZIONI (italiano e inglese) ==========
+        const translations = {
+            it: {
+                nav_benefits: "Vantaggi", nav_register: "Registrati", nav_login: "Accedi",
+                hero_title: "Guadagna con il nostro programma affiliati",
+                hero_subtitle: "Commissioni fino al 20% • Cookie 30 giorni • Pagamenti in criptovalute",
+                hero_cta: "Inizia ora →",
+                feat_commission_title: "Commissioni generose",
+                feat_commission_desc: "Fino al 20% su ogni vendita generata. Più vendi, più guadagni.",
+                feat_links_title: "Link personalizzati",
+                feat_links_desc: "Crea link per ogni prodotto, pagina o offerta speciale.",
+                feat_dashboard_title: "Dashboard in tempo reale",
+                feat_dashboard_desc: "Monitora click, conversioni e guadagni in un colpo d'occhio.",
+                reg_title: "Diventa affiliato", reg_subtitle: "Registrati gratuitamente in 30 secondi",
+                reg_name: "Nome e cognome", reg_email: "Email",
+                reg_wallet: "Indirizzo portafoglio crypto (USDT/BTC/ETH) - opzionale",
+                reg_button: "Registrati →",
+                reg_success_prefix: "✅ Registrazione completata! Il tuo codice affiliato è:",
+                reg_success_suffix: "Accedi alla dashboard",
+                cookie_text: "Utilizziamo cookie per tracciare i clic degli affiliati e attribuire le commissioni. Continuando a navigare accetti l'uso dei cookie.",
+                cookie_accept: "Accetta", cookie_decline: "Rifiuta",
+                alert_error_connection: "Errore di connessione", alert_error_generic: "Errore: "
+            },
+            en: {
+                nav_benefits: "Benefits", nav_register: "Sign up", nav_login: "Login",
+                hero_title: "Earn with our affiliate program",
+                hero_subtitle: "Up to 20% commission • 30-day cookie • Crypto payments",
+                hero_cta: "Get started →",
+                feat_commission_title: "Generous commissions",
+                feat_commission_desc: "Up to 20% on every sale. The more you sell, the more you earn.",
+                feat_links_title: "Custom links",
+                feat_links_desc: "Create links for any product, page or special offer.",
+                feat_dashboard_title: "Real-time dashboard",
+                feat_dashboard_desc: "Monitor clicks, conversions and earnings at a glance.",
+                reg_title: "Become an affiliate", reg_subtitle: "Sign up for free in 30 seconds",
+                reg_name: "Full name", reg_email: "Email",
+                reg_wallet: "Crypto wallet address (USDT/BTC/ETH) - optional",
+                reg_button: "Sign up →",
+                reg_success_prefix: "✅ Registration complete! Your affiliate code is:",
+                reg_success_suffix: "Go to dashboard",
+                cookie_text: "We use cookies to track affiliate clicks and attribute commissions. By continuing to browse you accept the use of cookies.",
+                cookie_accept: "Accept", cookie_decline: "Decline",
+                alert_error_connection: "Connection error", alert_error_generic: "Error: "
+            }
+        };
+
+        let currentLang = localStorage.getItem('affiliate_lang') || 'it';
+
+        function setLanguage(lang) {
+            if (!translations[lang]) return;
+            currentLang = lang;
+            localStorage.setItem('affiliate_lang', lang);
+            applyTranslations();
+            const dir = (lang === 'ar' || lang === 'he') ? 'rtl' : 'ltr';
+            document.body.dir = dir;
+            document.documentElement.lang = lang;
+        }
+
+        function applyTranslations() {
+            const t = translations[currentLang];
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (t[key]) {
+                    if (el.tagName === 'INPUT' && (el.type === 'text' || el.type === 'email')) {
+                        el.placeholder = t[key];
+                    } else if (el.tagName === 'INPUT' && el.type === 'button') {
+                        el.value = t[key];
+                    } else {
+                        el.innerHTML = t[key];
+                    }
+                }
+            });
+        }
+
+        // Cookie consent
+        function checkCookieConsent() {
+            const consent = localStorage.getItem('cookie_consent');
+            if (consent === null) document.getElementById('cookie-banner').style.display = 'block';
+            else if (consent === 'true') enableTrackingCookies();
+            else disableTrackingCookies();
+        }
+        function enableTrackingCookies() {
+            localStorage.setItem('cookie_consent', 'true');
+            document.cookie = "cookie_consent=true; path=/; max-age=31536000; SameSite=Lax";
+        }
+        function disableTrackingCookies() {
+            localStorage.setItem('cookie_consent', 'false');
+            document.cookie = "affiliate_click_id=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+            document.cookie = "cookie_consent=false; path=/; max-age=31536000; SameSite=Lax";
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            setLanguage(currentLang);
+            const acceptBtn = document.getElementById('accept-cookies');
+            const declineBtn = document.getElementById('decline-cookies');
+            if (acceptBtn) acceptBtn.addEventListener('click', enableTrackingCookies);
+            if (declineBtn) declineBtn.addEventListener('click', disableTrackingCookies);
+            checkCookieConsent();
+        });
+
+        // Form submission
         const API_BASE = window.location.origin + '/api';
         document.getElementById('affiliate-registration').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -312,13 +396,13 @@
                 const result = await response.json();
                 if (result.success) {
                     document.getElementById('register-message').innerHTML = 
-                        '<div class="alert alert-success">✅ Registrazione completata! Il tuo codice affiliato è: <strong>' + result.code + '</strong><br>Accedi alla <a href="affiliate-dashboard.html?code=' + result.code + '">dashboard</a></div>';
+                        '<div class="alert alert-success">' + translations[currentLang].reg_success_prefix + ' <strong>' + result.code + '</strong><br><a href="affiliate-dashboard.html?code=' + result.code + '">' + translations[currentLang].reg_success_suffix + '</a></div>';
                     e.target.reset();
                 } else {
-                    document.getElementById('register-message').innerHTML = '<div class="alert alert-error">❌ Errore: ' + result.error + '</div>';
+                    document.getElementById('register-message').innerHTML = '<div class="alert alert-error">❌ ' + translations[currentLang].alert_error_generic + result.error + '</div>';
                 }
             } catch (err) {
-                document.getElementById('register-message').innerHTML = '<div class="alert alert-error">❌ Errore di connessione</div>';
+                document.getElementById('register-message').innerHTML = '<div class="alert alert-error">❌ ' + translations[currentLang].alert_error_connection + '</div>';
             }
         });
     </script>
