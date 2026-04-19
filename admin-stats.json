@@ -1,0 +1,36 @@
+import { supabase } from './supabase-client.js';
+
+export default async function handler(req, res) {
+    const adminKey = req.headers['x-admin-key'];
+    if (adminKey !== process.env.ADMIN_API_KEY) return res.status(401).json({ error: 'Unauthorized' });
+
+    const { data: affiliates, error: affError } = await supabase
+        .from('affiliates')
+        .select('id, name, email, unique_code, total_earnings, paid_earnings, crypto_wallet, status, created_at')
+        .order('created_at', { ascending: false });
+
+    if (affError) return res.status(500).json({ error: affError.message });
+
+    const { data: conversions, error: convError } = await supabase
+        .from('conversions')
+        .select('*, affiliate:affiliates(name, email), product:products(name)')
+        .order('created_at', { ascending: false });
+
+    if (convError) return res.status(500).json({ error: convError.message });
+
+    const { data: payments, error: payError } = await supabase
+        .from('payments')
+        .select('*, affiliate:affiliates(name, email)')
+        .order('created_at', { ascending: false });
+
+    if (payError) return res.status(500).json({ error: payError.message });
+
+    const { data: products, error: prodError } = await supabase
+        .from('products')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+    if (prodError) return res.status(500).json({ error: prodError.message });
+
+    res.json({ affiliates, conversions, payments, products });
+}

@@ -1,0 +1,20 @@
+import { supabase } from './supabase-client.js';
+
+export default async function handler(req, res) {
+    if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+
+    const { name, email, crypto_wallet } = req.body;
+    if (!email) return res.status(400).json({ error: 'Email richiesta' });
+
+    const unique_code = Math.random().toString(36).substring(2, 8).toUpperCase();
+
+    const { data, error } = await supabase
+        .from('affiliates')
+        .insert([{ email, name, unique_code, commission_rate: 10.0, crypto_wallet }])
+        .select()
+        .single();
+
+    if (error) return res.status(500).json({ error: error.message });
+
+    res.status(201).json({ success: true, code: unique_code, affiliate: data });
+}
