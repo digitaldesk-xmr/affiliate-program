@@ -11,75 +11,56 @@
     <nav class="navbar">
         <div class="logo">Affiliate<span style="color:#2a5298">Pro</span></div>
         <div class="nav-links">
-            <a href="#features" data-i18n="nav_benefits">Vantaggi</a>
-            <a href="#register" data-i18n="nav_register">Registrati</a>
-            <a href="affiliate-dashboard.html" class="btn-secondary" style="padding: 8px 20px;" data-i18n="nav_login">Accedi</a>
-            <div class="language-selector">
-                <button onclick="setLanguage('it')" class="lang-btn">🇮🇹 IT</button>
-                <button onclick="setLanguage('en')" class="lang-btn">🇬🇧 EN</button>
-                <button onclick="setLanguage('fr')" class="lang-btn">🇫🇷 FR</button>
-                <button onclick="setLanguage('de')" class="lang-btn">🇩🇪 DE</button>
-                <button onclick="setLanguage('he')" class="lang-btn">🇮🇱 HE</button>
-                <button onclick="setLanguage('ar')" class="lang-btn">🇸🇦 AR</button>
-                <button onclick="setLanguage('zh')" class="lang-btn">🇨🇳 中文</button>
-            </div>
+            <a href="#features">Vantaggi</a>
+            <a href="#register">Registrati</a>
+            <a href="affiliate-dashboard.html" class="btn-secondary" style="padding: 8px 20px;">Accedi</a>
         </div>
     </nav>
 
     <div class="container">
         <div class="hero">
-            <h1 data-i18n="hero_title">Guadagna con il nostro programma affiliati</h1>
-            <p data-i18n="hero_subtitle">Commissioni fino al 20% • Cookie 30 giorni • Pagamenti in criptovalute</p>
-            <a href="#register" class="cta-button" data-i18n="hero_cta">Inizia ora →</a>
+            <h1>Guadagna con il nostro<br>programma affiliati</h1>
+            <p>Commissioni fino al 20% • Cookie 30 giorni • Pagamenti in criptovalute</p>
+            <a href="#register" class="cta-button">Inizia ora →</a>
         </div>
 
         <div id="features" class="features">
             <div class="feature-card">
                 <div class="feature-icon">💰</div>
-                <h3 data-i18n="feat_commission_title">Commissioni generose</h3>
-                <p data-i18n="feat_commission_desc">Fino al 20% su ogni vendita generata. Più vendi, più guadagni.</p>
+                <h3>Commissioni generose</h3>
+                <p>Fino al 20% su ogni vendita generata. Più vendi, più guadagni.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">🔗</div>
-                <h3 data-i18n="feat_links_title">Link personalizzati</h3>
-                <p data-i18n="feat_links_desc">Crea link per ogni prodotto, pagina o offerta speciale.</p>
+                <h3>Link personalizzati</h3>
+                <p>Crea link per ogni prodotto, pagina o offerta speciale.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">📊</div>
-                <h3 data-i18n="feat_dashboard_title">Dashboard in tempo reale</h3>
-                <p data-i18n="feat_dashboard_desc">Monitora click, conversioni e guadagni in un colpo d'occhio.</p>
+                <h3>Dashboard in tempo reale</h3>
+                <p>Monitora click, conversioni e guadagni in un colpo d'occhio.</p>
             </div>
         </div>
 
         <div id="register" class="registration-form">
-            <h2 class="text-center" data-i18n="reg_title">Diventa affiliato</h2>
-            <p class="text-center" style="margin-bottom: 24px; color: #4a627a;" data-i18n="reg_subtitle">Registrati gratuitamente in 30 secondi</p>
+            <h2 class="text-center">Diventa affiliato</h2>
+            <p class="text-center" style="margin-bottom: 24px; color: #4a627a;">Registrati gratuitamente in 30 secondi</p>
             <form id="affiliate-registration">
                 <div class="form-group">
-                    <input type="text" name="name" placeholder="Nome e cognome" data-i18n="reg_name" required>
+                    <input type="text" name="name" placeholder="Nome e cognome" required>
                 </div>
                 <div class="form-group">
-                    <input type="email" name="email" placeholder="Email" data-i18n="reg_email" required>
+                    <input type="email" name="email" placeholder="Email" required>
                 </div>
                 <div class="form-group">
-                    <input type="text" name="crypto_wallet" placeholder="Indirizzo portafoglio crypto (USDT/BTC/ETH)" data-i18n="reg_wallet">
+                    <input type="text" name="crypto_wallet" placeholder="Indirizzo portafoglio crypto (USDT/BTC/ETH) - opzionale">
                 </div>
-                <button type="submit" class="btn" style="width: 100%;" data-i18n="reg_button">Registrati →</button>
+                <button type="submit" class="btn" style="width: 100%;">Registrati →</button>
             </form>
             <div id="register-message" style="margin-top: 20px;"></div>
         </div>
     </div>
 
-    <div id="cookie-banner" class="cookie-banner" style="display: none;">
-        <div class="cookie-banner-content">
-            <p data-i18n="cookie_text">Utilizziamo cookie per tracciare i clic degli affiliati e attribuire le commissioni. Continuando a navigare accetti l'uso dei cookie.</p>
-            <button id="accept-cookies" class="btn-small" data-i18n="cookie_accept">Accetta</button>
-            <button id="decline-cookies" class="btn-small btn-secondary" data-i18n="cookie_decline">Rifiuta</button>
-        </div>
-    </div>
-
-    <script src="js/translations.js"></script>
-    <script src="js/cookies.js"></script>
     <script>
         const API_BASE = window.location.origin + '/api';
         document.getElementById('affiliate-registration').addEventListener('submit', async (e) => {
@@ -99,13 +80,13 @@
                 const result = await response.json();
                 if (result.success) {
                     document.getElementById('register-message').innerHTML = 
-                        '<div class="alert alert-success">✅ ' + (translations[currentLang]?.reg_success_prefix || "Registrazione completata!") + ' <strong>' + result.code + '</strong><br><a href="affiliate-dashboard.html?code=' + result.code + '">' + (translations[currentLang]?.reg_success_suffix || "Accedi alla dashboard") + '</a></div>';
+                        '<div class="alert alert-success">✅ Registrazione completata! Il tuo codice affiliato è: <strong>' + result.code + '</strong><br>Accedi alla <a href="affiliate-dashboard.html?code=' + result.code + '">dashboard</a></div>';
                     e.target.reset();
                 } else {
-                    document.getElementById('register-message').innerHTML = '<div class="alert alert-error">❌ ' + (translations[currentLang]?.alert_error_generic || "Errore: ") + result.error + '</div>';
+                    document.getElementById('register-message').innerHTML = '<div class="alert alert-error">❌ Errore: ' + result.error + '</div>';
                 }
             } catch (err) {
-                document.getElementById('register-message').innerHTML = '<div class="alert alert-error">❌ ' + (translations[currentLang]?.alert_error_connection || "Errore di connessione") + '</div>';
+                document.getElementById('register-message').innerHTML = '<div class="alert alert-error">❌ Errore di connessione</div>';
             }
         });
     </script>
