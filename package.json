@@ -1,9 +1,0 @@
-{
-  "name": "affiliate-program-backend",
-  "version": "1.0.0",
-  "description": "Affiliate program with crypto payments",
-  "main": "api/supabase-client.js",
-  "scripts": { "dev": "vercel dev", "deploy": "vercel deploy --prod" },
-  "dependencies": { "@supabase/supabase-js": "^2.39.0", "cookie": "^0.6.0" },
-  "engines": { "node": "20.x" }
-}
