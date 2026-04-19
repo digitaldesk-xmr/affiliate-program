@@ -6,7 +6,6 @@
     <title>Programma Affiliazione | Guadagna con noi</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* ========== RESET & BASE ========== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Inter', sans-serif;
@@ -19,7 +18,7 @@
         h1 {
             font-size: 3.5rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #ffffff, #e0d4ff);
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -69,12 +68,17 @@
         .hero {
             text-align: center;
             padding: 80px 40px;
-            background: rgba(255,255,255,0.95);
+            background: white;  /* bianco pieno, non trasparente */
             border-radius: 40px;
             margin: 40px 0;
             box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
         }
-        .hero p { font-size: 1.3rem; color: #4a5568; margin-bottom: 2rem; }
+        .hero p {
+            font-size: 1.3rem;
+            color: #1e293b;  /* testo scuro per alto contrasto */
+            font-weight: 500;
+            margin-bottom: 2rem;
+        }
         .features {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -94,9 +98,10 @@
             box-shadow: 0 30px 45px -12px rgba(0,0,0,0.2);
             background: white;
         }
+        .feature-card p { color: #334155; }  /* leggibile */
         .feature-icon { font-size: 3.5rem; margin-bottom: 1rem; }
         .registration-form {
-            background: rgba(255,255,255,0.95);
+            background: white;
             padding: 40px;
             border-radius: 32px;
             margin-bottom: 40px;
@@ -147,7 +152,7 @@
         }
         .nav-links a {
             text-decoration: none;
-            color: #4a5568;
+            color: #1e293b;
             font-weight: 500;
             transition: color 0.3s;
         }
@@ -178,7 +183,6 @@
             border-left: 4px solid #ef4444;
         }
         .text-center { text-align: center; }
-        /* Cookie Banner */
         .cookie-banner {
             position: fixed;
             bottom: 0;
@@ -238,7 +242,6 @@
             <div class="language-selector">
                 <button onclick="setLanguage('it')" class="lang-btn">🇮🇹 IT</button>
                 <button onclick="setLanguage('en')" class="lang-btn">🇬🇧 EN</button>
-                <!-- Aggiungi qui altre lingue -->
             </div>
         </div>
     </nav>
@@ -258,7 +261,7 @@
 
         <div id="register" class="registration-form">
             <h2 class="text-center" data-i18n="reg_title">Diventa affiliato</h2>
-            <p class="text-center" style="margin-bottom: 24px; color: #4a627a;" data-i18n="reg_subtitle">Registrati gratuitamente in 30 secondi</p>
+            <p class="text-center" style="margin-bottom: 24px; color: #475569;" data-i18n="reg_subtitle">Registrati gratuitamente in 30 secondi</p>
             <form id="affiliate-registration">
                 <div class="form-group"><input type="text" name="name" placeholder="Nome e cognome" data-i18n="reg_name" required></div>
                 <div class="form-group"><input type="email" name="email" placeholder="Email" data-i18n="reg_email" required></div>
@@ -278,7 +281,6 @@
     </div>
 
     <script>
-        // ========== TRADUZIONI (italiano e inglese) ==========
         const translations = {
             it: {
                 nav_benefits: "Vantaggi", nav_register: "Registrati", nav_login: "Accedi",
@@ -323,9 +325,7 @@
                 alert_error_connection: "Connection error", alert_error_generic: "Error: "
             }
         };
-
         let currentLang = localStorage.getItem('affiliate_lang') || 'it';
-
         function setLanguage(lang) {
             if (!translations[lang]) return;
             currentLang = lang;
@@ -335,7 +335,6 @@
             document.body.dir = dir;
             document.documentElement.lang = lang;
         }
-
         function applyTranslations() {
             const t = translations[currentLang];
             document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -351,8 +350,6 @@
                 }
             });
         }
-
-        // Cookie consent
         function checkCookieConsent() {
             const consent = localStorage.getItem('cookie_consent');
             if (consent === null) document.getElementById('cookie-banner').style.display = 'block';
@@ -376,8 +373,6 @@
             if (declineBtn) declineBtn.addEventListener('click', disableTrackingCookies);
             checkCookieConsent();
         });
-
-        // Form submission
         const API_BASE = window.location.origin + '/api';
         document.getElementById('affiliate-registration').addEventListener('submit', async (e) => {
             e.preventDefault();
