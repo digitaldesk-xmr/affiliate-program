@@ -15,29 +15,25 @@
             min-height: 100vh;
         }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        
+        /* Titolo principale: nero/grigio scuro, niente gradiente */
         h1 {
             font-size: 3.5rem;
             font-weight: 800;
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            color: #0f172a;
             margin-bottom: 1rem;
         }
         h2 {
             font-size: 2.2rem;
             font-weight: 700;
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            color: #0f172a;
             margin-bottom: 1.5rem;
         }
         h3 {
             font-size: 1.5rem;
             font-weight: 600;
             margin-bottom: 1rem;
-            color: #1e3c72;
+            color: #0f172a;
         }
         .btn, .cta-button {
             display: inline-block;
@@ -65,17 +61,19 @@
             border: 1px solid rgba(255,255,255,0.3);
         }
         .btn-secondary:hover { background: rgba(255,255,255,0.3); }
+        
+        /* Hero: sfondo bianco pieno, testo scuro */
         .hero {
             text-align: center;
             padding: 80px 40px;
-            background: white;  /* bianco pieno, non trasparente */
+            background: white;
             border-radius: 40px;
             margin: 40px 0;
             box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
         }
         .hero p {
             font-size: 1.3rem;
-            color: #1e293b;  /* testo scuro per alto contrasto */
+            color: #1e293b;
             font-weight: 500;
             margin-bottom: 2rem;
         }
@@ -98,7 +96,7 @@
             box-shadow: 0 30px 45px -12px rgba(0,0,0,0.2);
             background: white;
         }
-        .feature-card p { color: #334155; }  /* leggibile */
+        .feature-card p { color: #334155; }
         .feature-icon { font-size: 3.5rem; margin-bottom: 1rem; }
         .registration-form {
             background: white;
