@@ -1,11 +1,4 @@
 {
-  "functions": {
-    "api/*.js": {
-      "maxDuration": 10,
-      "memory": 1024,
-      "runtime": "nodejs20.x"
-    }
-  },
   "rewrites": [
     {
       "source": "/go/:affiliate/:link",
