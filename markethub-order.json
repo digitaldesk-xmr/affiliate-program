@@ -1,0 +1,38 @@
+// api/markethub-order.js
+export default async function handler(req, res) {
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+
+  const { orderId, orderAmount, customerEmail, productId } = req.body;
+  if (!orderId || !orderAmount) {
+    return res.status(400).json({ error: 'orderId and orderAmount required' });
+  }
+
+  // Leggi il cookie dell'affiliato dalla richiesta in arrivo
+  const affiliateClickId = req.cookies?.affiliate_click_id;
+  if (!affiliateClickId) {
+    // Vendita senza affiliato – puoi registrarla comunque come anonima
+    return res.status(200).json({ success: false, reason: 'no_affiliate_cookie' });
+  }
+
+  // Chiama il webhook di registrazione conversione (stesso progetto)
+  const webhookUrl = `https://${req.headers.host}/api/register-conversion`;
+  const response = await fetch(webhookUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      // Inoltra il cookie originale per far sì che register-conversion possa leggerlo
+      'Cookie': req.headers.cookie || ''
+    },
+    body: JSON.stringify({
+      orderId,
+      orderAmount,
+      customerEmail,
+      productId
+    })
+  });
+
+  const data = await response.json();
+  return res.status(response.status).json(data);
+}
