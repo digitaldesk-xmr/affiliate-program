@@ -91,6 +91,7 @@
     <script>
         const API_BASE = window.location.origin + '/api';
 
+        // Registrazione affiliato
         document.getElementById('affiliate-registration').addEventListener('submit', async (e) => {
             e.preventDefault();
             const formData = new FormData(e.target);
@@ -118,6 +119,7 @@
             }
         });
 
+        // Form contatti
         document.getElementById('contact-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const formData = new FormData(e.target);
