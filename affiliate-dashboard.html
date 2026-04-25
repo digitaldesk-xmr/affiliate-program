@@ -4,111 +4,264 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Affiliato</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #1a1a2e;
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        h1, h2, h3 { color: #0f172a; margin-bottom: 1rem; }
+        .navbar {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            padding: 18px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo { font-size: 1.8rem; font-weight: 800; background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .nav-links { display: flex; gap: 30px; align-items: center; flex-wrap: wrap; }
+        .nav-links a { text-decoration: none; color: #1e293b; font-weight: 500; }
+        .btn, button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 40px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .btn:hover { transform: translateY(-2px); opacity: 0.9; }
+        .stat-card, .product-card, .wallet-card {
+            background: white;
+            border-radius: 24px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px,1fr));
+            gap: 24px;
+        }
+        .product-card h3 { font-size: 1.3rem; }
+        .commission { color: #2a5298; font-weight: bold; }
+        .affiliate-link { background: #f1f5f9; padding: 10px; border-radius: 16px; word-break: break-all; font-size: 0.8rem; margin: 10px 0; }
+        input { width: 100%; padding: 12px; border-radius: 16px; border: 1px solid #cbd5e1; margin: 10px 0; }
+        .alert { padding: 12px; border-radius: 16px; margin: 10px 0; }
+        .alert-success { background: #dcfce7; color: #166534; }
+        .alert-error { background: #fee2e2; color: #991b1b; }
+        footer { text-align: center; padding: 30px; color: white; }
+        @media (max-width: 768px) { .navbar { flex-direction: column; text-align: center; } }
+    </style>
 </head>
 <body>
     <nav class="navbar">
         <div class="logo">Affiliate<span style="color:#2a5298">Pro</span></div>
         <div class="nav-links">
-            <span id="userName" style="color:#2a5298; font-weight:500;">👋 Ciao, Affiliato</span>
+            <span id="userGreeting">👋 Ciao, Affiliato</span>
             <a href="index.html">Logout</a>
         </div>
     </nav>
 
     <div class="container">
-        <h2 class="text-center" style="margin: 40px 0 20px;">La tua dashboard</h2>
-        
-        <div class="dashboard-stats">
-            <div class="stat-card">
-                <h3>Click totali</h3>
-                <div class="stat-value" id="total-clicks">0</div>
-            </div>
-            <div class="stat-card">
-                <h3>Conversioni</h3>
-                <div class="stat-value" id="total-conversions">0</div>
-            </div>
-            <div class="stat-card">
-                <h3>Guadagni</h3>
-                <div class="stat-value" id="total-earnings">€ 0</div>
-            </div>
-            <div class="stat-card">
-                <h3>Commissione</h3>
-                <div class="stat-value" id="commission-rate">0%</div>
-            </div>
+        <h1>📊 La tua dashboard</h1>
+
+        <!-- Statistiche -->
+        <div class="stats-grid" id="statsContainer">
+            <div class="stat-card"><h3>Click totali</h3><div id="total-clicks">0</div></div>
+            <div class="stat-card"><h3>Conversioni</h3><div id="total-conversions">0</div></div>
+            <div class="stat-card"><h3>Guadagni</h3><div id="total-earnings">€0</div></div>
+            <div class="stat-card"><h3>Commissione</h3><div id="commission-rate">0%</div></div>
         </div>
 
-        <div class="link-generator">
-            <h3>🔗 Crea un nuovo link</h3>
-            <div class="input-group">
-                <input type="url" id="destination-url" placeholder="URL di destinazione (es. /prodotto)" value="https://tudominio.com/prodotto">
-                <input type="text" id="custom-slug" placeholder="Slug personalizzato (opzionale)">
-                <button class="btn" onclick="generateLink()">Genera link</button>
-            </div>
-            <div id="generated-link" style="display:none;">
-                <span>📎 Il tuo link affiliato:</span>
-                <input type="text" id="affiliate-link" readonly>
-                <button class="btn-secondary" onclick="copyLink()">Copia</button>
-            </div>
+        <!-- Portafoglio crypto -->
+        <div class="wallet-card">
+            <h3>💰 Il tuo wallet crypto</h3>
+            <p>Riceverai i pagamenti in USDT/BTC/ETH su questo indirizzo</p>
+            <input type="text" id="crypto_wallet" placeholder="Indirizzo wallet (USDT, BTC, ETH)">
+            <button id="updateWalletBtn">Aggiorna wallet</button>
+            <div id="walletMessage"></div>
         </div>
 
-        <div class="table-container">
-            <h3>📈 I tuoi ultimi click</h3>
-            <table>
-                <thead>
-                    <tr><th>Data</th><th>Link</th><th>IP</th><th>Conversione?</th></tr>
-                </thead>
-                <tbody id="clicks-table">
-                    <tr><td colspan="4" class="text-center">Caricamento...</td></tr>
-                </tbody>
-            </table>
+        <!-- Prodotti disponibili -->
+        <h2>📦 Prodotti da promuovere</h2>
+        <div id="productsContainer" class="products-grid">
+            <div class="stat-card">Caricamento prodotti...</div>
         </div>
     </div>
+
+    <footer>
+        <p>© 2025 Affiliate Program – Pagamenti in criptovalute</p>
+    </footer>
 
     <script>
         const API_BASE = window.location.origin + '/api';
         let affiliateId = null;
 
-        async function loadStats() {
-            if (!affiliateId) return;
-            const res = await fetch(`${API_BASE}/affiliate-stats?affiliateId=${affiliateId}`);
-            const data = await res.json();
-            document.getElementById('total-clicks').innerText = data.clicks || 0;
-            document.getElementById('total-conversions').innerText = data.conversions?.[0]?.count || 0;
-            document.getElementById('total-earnings').innerText = '€ ' + (data.total_earnings || 0).toFixed(2);
-            document.getElementById('commission-rate').innerText = (data.commission_rate || 0) + '%';
+        function getCookie(name) {
+            const value = `; ${document.cookie}`;
+            const parts = value.split(`; ${name}=`);
+            if (parts.length === 2) return parts.pop().split(';').shift();
+            return null;
         }
 
-        async function generateLink() {
-            const destinationUrl = document.getElementById('destination-url').value;
-            const customSlug = document.getElementById('custom-slug').value;
-            const res = await fetch(`${API_BASE}/generate-link`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ affiliateId, destinationUrl, customSlug })
-            });
-            const result = await res.json();
-            if (result.success) {
-                document.getElementById('affiliate-link').value = result.affiliateUrl;
-                document.getElementById('generated-link').style.display = 'flex';
-            } else {
-                alert('Errore: ' + result.error);
+        function getAffiliateIdFromUrl() {
+            const params = new URLSearchParams(window.location.search);
+            const code = params.get('code');
+            if (code) {
+                localStorage.setItem('affiliate_code', code);
+                return code;
+            }
+            return localStorage.getItem('affiliate_code');
+        }
+
+        async function loadStats() {
+            if (!affiliateId) return;
+            try {
+                const res = await fetch(`${API_BASE}/affiliate-stats?affiliateId=${affiliateId}`);
+                const data = await res.json();
+                document.getElementById('total-clicks').innerText = data.total_clicks || 0;
+                document.getElementById('total-conversions').innerText = data.total_conversions || 0;
+                document.getElementById('total-earnings').innerText = `€${(data.total_earnings || 0).toFixed(2)}`;
+                document.getElementById('commission-rate').innerText = `${data.commission_rate || 0}%`;
+                if (data.crypto_wallet) document.getElementById('crypto_wallet').value = data.crypto_wallet;
+            } catch (err) {
+                console.error(err);
             }
         }
 
-        function copyLink() {
-            const linkInput = document.getElementById('affiliate-link');
-            linkInput.select();
-            document.execCommand('copy');
-            alert('Link copiato negli appunti!');
+        async function loadProducts() {
+            try {
+                const res = await fetch(`${API_BASE}/affiliate-list-products`);
+                if (!res.ok) throw new Error('Errore caricamento prodotti');
+                const products = await res.json();
+                const container = document.getElementById('productsContainer');
+                if (!products.length) {
+                    container.innerHTML = '<div class="stat-card">❌ Nessun prodotto attivo. Contatta l\'amministratore.</div>';
+                    return;
+                }
+                container.innerHTML = '';
+                products.forEach(product => {
+                    const card = document.createElement('div');
+                    card.className = 'product-card';
+                    card.innerHTML = `
+                        <h3>${product.name}</h3>
+                        <p>${product.description || ''}</p>
+                        <p class="commission">💰 Commissione: ${product.default_commission_rate}%</p>
+                        <button class="btn generate-link-btn" data-product-id="${product.id}" data-product-name="${product.name}">🔗 Genera link</button>
+                        <div class="affiliate-link" id="link-${product.id}" style="display:none;">
+                            <strong>Il tuo link affiliato:</strong><br>
+                            <input type="text" readonly value="" id="input-${product.id}" onclick="this.select();">
+                            <button class="copy-btn" data-id="${product.id}">Copia</button>
+                        </div>
+                    `;
+                    container.appendChild(card);
+                });
+
+                document.querySelectorAll('.generate-link-btn').forEach(btn => {
+                    btn.addEventListener('click', async (e) => {
+                        const productId = btn.dataset.productId;
+                        const productName = btn.dataset.productName;
+                        await generateLink(productId, productName);
+                    });
+                });
+                document.querySelectorAll('.copy-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const productId = btn.dataset.id;
+                        const input = document.getElementById(`input-${productId}`);
+                        input.select();
+                        document.execCommand('copy');
+                        alert('Link copiato negli appunti!');
+                    });
+                });
+            } catch (err) {
+                console.error(err);
+                document.getElementById('productsContainer').innerHTML = '<div class="stat-card alert-error">⚠️ Errore nel caricamento dei prodotti. Riprova più tardi.</div>';
+            }
         }
 
-        // Simulazione: in realtà dovresti passare l'ID dalla sessione o da un parametro URL
-        // Per demo, prendiamo un ID fisso (lo sostituirai con la tua logica)
+        async function generateLink(productId, productName) {
+            const btn = document.querySelector(`.generate-link-btn[data-product-id="${productId}"]`);
+            btn.innerText = '⏳ Generazione...';
+            btn.disabled = true;
+            try {
+                const res = await fetch(`${API_BASE}/generate-link`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        affiliateId: affiliateId,
+                        productId: productId,
+                        destinationUrl: null,
+                        customSlug: null
+                    })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    const linkDiv = document.getElementById(`link-${productId}`);
+                    const input = document.getElementById(`input-${productId}`);
+                    input.value = data.affiliateUrl;
+                    linkDiv.style.display = 'block';
+                } else {
+                    alert('Errore: ' + data.error);
+                }
+            } catch (err) {
+                alert('Errore di connessione');
+            } finally {
+                btn.innerText = '🔗 Genera link';
+                btn.disabled = false;
+            }
+        }
+
+        document.getElementById('updateWalletBtn').addEventListener('click', async () => {
+            const wallet = document.getElementById('crypto_wallet').value;
+            if (!wallet) {
+                document.getElementById('walletMessage').innerHTML = '<div class="alert alert-error">Inserisci un indirizzo wallet valido</div>';
+                return;
+            }
+            try {
+                const res = await fetch(`${API_BASE}/affiliate-update-wallet`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ affiliateId, crypto_wallet: wallet })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    document.getElementById('walletMessage').innerHTML = '<div class="alert alert-success">✅ Wallet aggiornato!</div>';
+                } else {
+                    document.getElementById('walletMessage').innerHTML = '<div class="alert alert-error">❌ Errore aggiornamento</div>';
+                }
+            } catch (err) {
+                document.getElementById('walletMessage').innerHTML = '<div class="alert alert-error">❌ Errore di connessione</div>';
+            }
+        });
+
         (async () => {
-            // Qui dovresti recuperare l'affiliateId dal localStorage o da un cookie
-            affiliateId = 'TUO-AFFILIATE-ID'; // Sostituisci con logica reale
+            affiliateId = getAffiliateIdFromUrl();
+            if (!affiliateId) {
+                // Fallback per test (usa un codice valido dal database)
+                affiliateId = 'TUO_AFFILIATE_ID_ESEMPIO';
+                console.warn('Nessun codice affiliato trovato, usando fallback');
+            }
             await loadStats();
+            await loadProducts();
         })();
     </script>
 </body>
