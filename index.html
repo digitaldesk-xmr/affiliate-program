@@ -19,24 +19,24 @@
     </nav>
 
     <div class="container">
-        <div class="hero fade-in">
+        <div class="hero">
             <h1>Guadagna con il programma affiliati di MarketHub</h1>
             <p>Commissioni fino al 20% • Cookie 30 giorni • Pagamenti in criptovalute</p>
             <a href="#register" class="cta-button">Inizia ora →</a>
         </div>
 
         <div id="features" class="features">
-            <div class="feature-card fade-in">
+            <div class="feature-card">
                 <div class="feature-icon" style="font-size: 3rem;">💰</div>
                 <h3>Commissioni generose</h3>
                 <p>Fino al 20% su ogni vendita. Più vendi, più guadagni.</p>
             </div>
-            <div class="feature-card fade-in">
+            <div class="feature-card">
                 <div class="feature-icon" style="font-size: 3rem;">🔗</div>
                 <h3>Link personalizzati</h3>
                 <p>Crea link per ogni prodotto e monitora le performance.</p>
             </div>
-            <div class="feature-card fade-in">
+            <div class="feature-card">
                 <div class="feature-icon" style="font-size: 3rem;">📊</div>
                 <h3>Dashboard in tempo reale</h3>
                 <p>Monitora click, conversioni e guadagni in un colpo d'occhio.</p>
@@ -85,13 +85,12 @@
 
     <footer>
         <p>© 2025 MarketHub Affiliates – Pagamenti in criptovalute</p>
-        <p><a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Termini di servizio</a></p>
+        <p><a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Termini di servizio</a> | <a href="reset-password.html">Reset password</a></p>
     </footer>
 
     <script>
         const API_BASE = window.location.origin + '/api';
 
-        // Registrazione affiliato
         document.getElementById('affiliate-registration').addEventListener('submit', async (e) => {
             e.preventDefault();
             const formData = new FormData(e.target);
@@ -119,7 +118,6 @@
             }
         });
 
-        // Form contatti
         document.getElementById('contact-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const formData = new FormData(e.target);
