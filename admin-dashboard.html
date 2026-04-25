@@ -3,145 +3,253 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Admin Dashboard | MarketHub Affiliates</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
     <style>
-        .admin-container { max-width: 1400px; margin: 0 auto; padding: 20px; }
-        .admin-card { background: white; border-radius: 24px; padding: 20px; margin-bottom: 30px; box-shadow: 0 8px 20px rgba(0,0,0,0.05); }
+        .admin-card { background: white; border-radius: 24px; padding: 24px; margin-bottom: 30px; box-shadow: 0 8px 20px rgba(0,0,0,0.05); }
         table { width: 100%; border-collapse: collapse; }
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0; }
-        th { background: #f8fafd; }
-        .status-pending { color: orange; }
-        .status-approved { color: green; }
-        .status-paid { color: blue; }
-        .btn-pay { background: #2a5298; color: white; border: none; padding: 6px 12px; border-radius: 20px; cursor: pointer; }
-        .btn-pay:hover { background: #1e3c72; }
-        .product-form { display: grid; gap: 12px; margin-bottom: 20px; }
+        th, td { text-align: left; padding: 12px; border-bottom: 1px solid #e2e8f0; }
+        th { background: #f8fafc; font-weight: 600; }
+        .status-pending { color: #eab308; font-weight: bold; }
+        .status-approved { color: #22c55e; font-weight: bold; }
+        .status-paid { color: #3b82f6; font-weight: bold; }
+        .btn-sm { padding: 4px 12px; font-size: 0.8rem; margin: 0 4px; }
+        .text-center { text-align: center; }
+        .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
     </style>
 </head>
 <body>
-    <nav class="navbar"><div class="logo">Admin<span style="color:#2a5298">Panel</span></div><div class="nav-links"><a href="index.html">Home</a><button id="logoutBtn" class="btn-secondary">Logout</button></div></nav>
-    <div class="admin-container">
-        <h1>Dashboard Admin</h1>
+    <nav class="navbar">
+        <div class="logo">Admin<span style="color:#2a5298">Panel</span></div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <button id="logoutBtn" class="btn-secondary" style="padding: 8px 20px;">Logout</button>
+        </div>
+    </nav>
 
-        <!-- Gestione Prodotti -->
+    <div class="container">
+        <h1>📊 Dashboard Amministratore</h1>
+
+        <!-- Affiliati Iscritti -->
         <div class="admin-card">
-            <h2>📦 Gestione Prodotti / Servizi</h2>
-            <button id="newProductBtn" class="btn">+ Nuovo Prodotto</button>
-            <div id="productForm" style="display:none;" class="product-form">
-                <input type="text" id="prod_name" placeholder="Nome prodotto">
-                <textarea id="prod_desc" placeholder="Descrizione"></textarea>
-                <input type="number" id="prod_commission" placeholder="Commissione %" step="any">
-                <input type="text" id="prod_url" placeholder="URL base (es. /prodotto)">
-                <button id="saveProductBtn" class="btn">Salva</button>
+            <h2>📋 Affiliati Iscritti</h2>
+            <div style="overflow-x: auto;">
+                <table id="affiliatesTable">
+                    <thead>
+                        <tr><th>ID</th><th>Nome</th><th>Email</th><th>Codice</th><th>Wallet Crypto</th><th>Totale Guadagnato</th><th>Pagato</th><th>Da Pagare</th><th>Status</th><th>Data Iscrizione</th><th>Azioni</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td colspan="11" class="text-center">Caricamento affiliati...</td></tr>
+                    </tbody>
+                </table>
             </div>
-            <table id="productsTable"><thead><tr><th>Nome</th><th>Commissione</th><th>URL base</th><th>Attivo</th><th>Azioni</th></tr></thead><tbody></tbody></table>
         </div>
 
-        <!-- Affiliati -->
-        <div class="admin-card"><h2>📋 Affiliati Iscritti</h2><table id="affiliatesTable"><thead><tr><th>ID</th><th>Nome</th><th>Email</th><th>Codice</th><th>Wallet</th><th>Totale</th><th>Pagato</th><th>Da Pagare</th><th>Status</th><th>Data</th></tr></thead><tbody></tbody></table></div>
+        <!-- Prodotti -->
+        <div class="admin-card">
+            <h2>📦 Prodotti / Servizi</h2>
+            <button id="newProductBtn" class="btn" style="margin-bottom: 20px;">+ Nuovo Prodotto</button>
+            <div id="productForm" style="display: none; margin-bottom: 20px; padding: 20px; background: #f8fafc; border-radius: 20px;">
+                <div class="grid-2">
+                    <input type="text" id="prod_name" placeholder="Nome prodotto">
+                    <input type="number" id="prod_commission" placeholder="Commissione %" step="any">
+                    <input type="text" id="prod_url" placeholder="URL base (es. /prodotto)">
+                    <input type="text" id="prod_description" placeholder="Descrizione breve (opzionale)">
+                </div>
+                <button id="saveProductBtn" class="btn">Salva prodotto</button>
+            </div>
+            <div style="overflow-x: auto;">
+                <table id="productsTable">
+                    <thead><tr><th>ID</th><th>Nome</th><th>Commissione</th><th>URL base</th><th>Attivo</th><th>Azioni</th></tr></thead>
+                    <tbody><tr><td colspan="6" class="text-center">Caricamento prodotti...</td></tr></tbody>
+                </table>
+            </div>
+        </div>
 
         <!-- Conversioni -->
-        <div class="admin-card"><h2>💰 Conversioni</h2><table id="conversionsTable"><thead><tr><th>ID</th><th>Affiliato</th><th>Prodotto</th><th>Importo</th><th>Commissione</th><th>Status</th><th>Data</th><th>Azioni</th></tr></thead><tbody></tbody></table></div>
+        <div class="admin-card">
+            <h2>💰 Conversioni</h2>
+            <div style="overflow-x: auto;">
+                <table id="conversionsTable">
+                    <thead><tr><th>ID</th><th>Affiliato</th><th>Prodotto</th><th>Importo</th><th>Commissione</th><th>Status</th><th>Data</th><th>Azioni</th></tr></thead>
+                    <tbody><tr><td colspan="8" class="text-center">Caricamento conversioni...</td></tr></tbody>
+                </table>
+            </div>
+        </div>
 
-        <!-- Pagamenti in Crypto -->
-        <div class="admin-card"><h2>💰 Paga in Criptovaluta</h2><p>Seleziona l'affiliato e le conversioni approvate da pagare.</p>
-            <select id="pay_affiliate_id"><option value="">-- Scegli affiliato --</option></select>
-            <select id="pay_conversion_ids" multiple size="5"></select>
-            <input type="number" id="pay_amount_usd" placeholder="Importo in USD/EUR" step="0.01">
-            <select id="pay_crypto_currency"><option value="USDT">USDT</option><option value="BTC">BTC</option><option value="ETH">ETH</option></select>
-            <input type="number" id="pay_crypto_amount" placeholder="Importo in cripto" step="any">
-            <button id="executePaymentBtn" class="btn">Registra Pagamento in Cripto</button>
+        <!-- Pagamenti -->
+        <div class="admin-card">
+            <h2>💸 Registra Pagamento in Cripto</h2>
+            <div class="grid-2">
+                <select id="pay_affiliate_id"><option value="">-- Scegli affiliato --</option></select>
+                <select id="pay_conversion_ids" multiple size="4"></select>
+                <input type="number" id="pay_amount_usd" placeholder="Importo in USD/EUR" step="0.01">
+                <select id="pay_crypto_currency"><option value="USDT">USDT</option><option value="BTC">BTC</option><option value="ETH">ETH</option></select>
+                <input type="number" id="pay_crypto_amount" placeholder="Importo in criptovaluta" step="any">
+                <button id="executePaymentBtn" class="btn">Registra Pagamento</button>
+            </div>
             <div id="paymentMessage"></div>
         </div>
 
         <!-- Storico Pagamenti -->
-        <div class="admin-card"><h2>💸 Pagamenti Effettuati</h2><table id="paymentsTable"><thead><tr><th>ID</th><th>Affiliato</th><th>Importo (USD)</th><th>Cripto</th><th>Data</th></tr></thead><tbody></tbody></table></div>
+        <div class="admin-card">
+            <h2>📜 Storico Pagamenti</h2>
+            <div style="overflow-x: auto;">
+                <table id="paymentsTable">
+                    <thead><tr><th>ID</th><th>Affiliato</th><th>Importo (USD)</th><th>Cripto</th><th>Data</th></tr></thead>
+                    <tbody><tr><td colspan="5" class="text-center">Caricamento...</td></tr></tbody>
+                </table>
+            </div>
+        </div>
     </div>
+
+    <footer><p>© 2025 MarketHub Affiliates – Dashboard Amministratore</p></footer>
 
     <script>
         const API_BASE = window.location.origin + '/api';
-        const ADMIN_KEY = 'your-secret-admin-key';
+        const ADMIN_KEY = localStorage.getItem('admin_key') || prompt('Inserisci la chiave admin:');
 
-        let products = [];
-        async function fetchAdminData() {
-            const res = await fetch(`${API_BASE}/admin-stats`, { headers: { 'x-admin-key': ADMIN_KEY } });
-            const data = await res.json();
-            if (res.status === 401) return alert('Unauthorized');
-            renderProducts(data.products);
-            renderAffiliates(data.affiliates);
-            renderConversions(data.conversions);
-            renderPayments(data.payments);
+        if (!ADMIN_KEY) {
+            alert('Chiave admin richiesta');
+            window.location.href = 'index.html';
         }
 
-        function renderProducts(prods) {
-            products = prods;
-            const tbody = document.querySelector('#productsTable tbody');
-            tbody.innerHTML = '';
-            prods.forEach(p => {
-                tbody.innerHTML += `<tr><td>${p.name}</td><td>${p.default_commission_rate}%</td><td>${p.base_url}</td><td>${p.is_active ? '✅' : '❌'}</td><td><button onclick="editProduct('${p.id}')">✏️</button> <button onclick="deleteProduct('${p.id}')">🗑️</button></td></tr>`;
+        // ========== CARICA AFFILIATI ==========
+        async function loadAffiliates() {
+            try {
+                const res = await fetch(`${API_BASE}/admin-list-affiliates`, {
+                    headers: { 'x-admin-key': ADMIN_KEY }
+                });
+                if (res.status === 401) {
+                    alert('Chiave admin non valida');
+                    return;
+                }
+                const affiliates = await res.json();
+                const tbody = document.querySelector('#affiliatesTable tbody');
+                if (!affiliates.length) {
+                    tbody.innerHTML = '<tr><td colspan="11" class="text-center">❌ Nessun affiliato trovato</td></tr>';
+                    return;
+                }
+                tbody.innerHTML = '';
+                affiliates.forEach(aff => {
+                    const pending = (aff.total_earnings || 0) - (aff.paid_earnings || 0);
+                    const row = `
+                        <tr>
+                            <td>${aff.id.slice(0,8)}</td>
+                            <td>${aff.name || '-'}</td>
+                            <td>${aff.email}</td>
+                            <td><strong>${aff.unique_code}</strong></td>
+                            <td>${aff.crypto_wallet || '-'}</td>
+                            <td>€${(aff.total_earnings || 0).toFixed(2)}</td>
+                            <td>€${(aff.paid_earnings || 0).toFixed(2)}</td>
+                            <td>€${pending.toFixed(2)}</td>
+                            <td><span class="status-${aff.status}">${aff.status}</span></td>
+                            <td>${new Date(aff.created_at).toLocaleDateString()}</td>
+                            <td><button class="btn-sm btn-secondary" onclick="suspendAffiliate('${aff.id}')">Sospendi</button></td>
+                        </tr>
+                    `;
+                    tbody.insertAdjacentHTML('beforeend', row);
+                });
+            } catch (err) {
+                console.error(err);
+                document.querySelector('#affiliatesTable tbody').innerHTML = '<tr><td colspan="11" class="text-center alert-error">Errore caricamento affiliati</td></tr>';
+            }
+        }
+
+        // ========== CARICA PRODOTTI ==========
+        async function loadProducts() {
+            try {
+                const res = await fetch(`${API_BASE}/admin-list-products`, {
+                    headers: { 'x-admin-key': ADMIN_KEY }
+                });
+                const products = await res.json();
+                const tbody = document.querySelector('#productsTable tbody');
+                if (!products.length) {
+                    tbody.innerHTML = '<tr><td colspan="6" class="text-center">❌ Nessun prodotto. <button onclick="document.getElementById(\'newProductBtn\').click()">Clicca per aggiungere</button></td></tr>';
+                    return;
+                }
+                tbody.innerHTML = '';
+                products.forEach(p => {
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>${p.id.slice(0,8)}</td>
+                            <td>${p.name}</td>
+                            <td>${p.default_commission_rate}%</td>
+                            <td>${p.base_url || '-'}</td>
+                            <td>${p.is_active ? '✅' : '❌'}</td>
+                            <td><button class="btn-sm" onclick="deleteProduct('${p.id}')">🗑️</button></td>
+                        </tr>
+                    `;
+                });
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        // ========== CARICA CONVERSIONI ==========
+        async function loadConversions() {
+            try {
+                const res = await fetch(`${API_BASE}/admin-stats`, {
+                    headers: { 'x-admin-key': ADMIN_KEY }
+                });
+                const data = await res.json();
+                const conversions = data.conversions || [];
+                const tbody = document.querySelector('#conversionsTable tbody');
+                if (!conversions.length) {
+                    tbody.innerHTML = '<tr><td colspan="8" class="text-center">❌ Nessuna conversione</td></tr>';
+                    return;
+                }
+                tbody.innerHTML = '';
+                conversions.forEach(conv => {
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>${conv.id.slice(0,8)}</td>
+                            <td>${conv.affiliate?.name || conv.affiliate?.email || '-'}</td>
+                            <td>${conv.product?.name || '-'}</td>
+                            <td>€${conv.amount}</td>
+                            <td>€${conv.commission}</td>
+                            <td class="status-${conv.status}">${conv.status}</td>
+                            <td>${new Date(conv.created_at).toLocaleDateString()}</td>
+                            <td>${conv.status === 'pending' ? `<button class="btn-sm" onclick="approveConversion('${conv.id}', '${conv.affiliate_id}', ${conv.commission})">Approva</button>` : '-'}</td>
+                        </tr>
+                    `;
+                });
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        // ========== FUNZIONI UTILI ==========
+        async function approveConversion(conversionId, affiliateId, commission) {
+            const res = await fetch(`${API_BASE}/admin-approve-conversion`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'x-admin-key': ADMIN_KEY },
+                body: JSON.stringify({ conversionId, affiliateId, commission })
             });
+            if (res.ok) {
+                alert('Conversione approvata!');
+                loadConversions();
+                loadAffiliates();
+            } else {
+                alert('Errore');
+            }
         }
 
         async function deleteProduct(id) {
-            if (!confirm('Eliminare?')) return;
-            await fetch(`${API_BASE}/admin-delete-product?id=${id}`, { method: 'DELETE', headers: { 'x-admin-key': ADMIN_KEY } });
-            fetchAdminData();
+            if (!confirm('Eliminare questo prodotto?')) return;
+            await fetch(`${API_BASE}/admin-delete-product?id=${id}`, { 
+                method: 'DELETE', 
+                headers: { 'x-admin-key': ADMIN_KEY } 
+            });
+            loadProducts();
         }
 
-        document.getElementById('newProductBtn').addEventListener('click', () => {
-            document.getElementById('productForm').style.display = 'grid';
-        });
-        document.getElementById('saveProductBtn').addEventListener('click', async () => {
-            const name = document.getElementById('prod_name').value;
-            const description = document.getElementById('prod_desc').value;
-            const default_commission_rate = parseFloat(document.getElementById('prod_commission').value);
-            const base_url = document.getElementById('prod_url').value;
-            if (!name || !default_commission_rate || !base_url) return alert('Compila tutti i campi');
-            await fetch(`${API_BASE}/admin-create-product`, {
-                method: 'POST', headers: { 'Content-Type': 'application/json', 'x-admin-key': ADMIN_KEY },
-                body: JSON.stringify({ name, description, default_commission_rate, base_url, is_active: true })
-            });
-            fetchAdminData();
-            document.getElementById('productForm').style.display = 'none';
-        });
-
-        function renderAffiliates(affiliates) {
-            const tbody = document.querySelector('#affiliatesTable tbody');
-            tbody.innerHTML = '';
-            affiliates.forEach(aff => {
-                const pending = aff.total_earnings - (aff.paid_earnings || 0);
-                tbody.innerHTML += `<tr><td>${aff.id.slice(0,8)}</td><td>${aff.name || '-'}</td><td>${aff.email}</td><td>${aff.unique_code}</td><td>${aff.crypto_wallet || '-'}</td><td>€${aff.total_earnings?.toFixed(2) || 0}</td><td>€${aff.paid_earnings?.toFixed(2) || 0}</td><td>€${pending.toFixed(2)}</td><td>${aff.status}</td><td>${new Date(aff.created_at).toLocaleDateString()}</td></tr>`;
-            });
-        }
-
-        function renderConversions(conversions) {
-            const tbody = document.querySelector('#conversionsTable tbody');
-            tbody.innerHTML = '';
-            conversions.forEach(conv => {
-                tbody.innerHTML += `<tr><td>${conv.id.slice(0,8)}</td><td>${conv.affiliate?.name || conv.affiliate?.email}</td><td>${conv.product?.name || '-'}</td><td>€${conv.amount}</td><td>€${conv.commission}</td><td class="status-${conv.status}">${conv.status}</td><td>${new Date(conv.created_at).toLocaleDateString()}</td><td>${conv.status === 'pending' ? `<button class="btn-pay" onclick="approveConversion('${conv.id}', '${conv.affiliate_id}', ${conv.commission})">Approva</button>` : '-'}</td></tr>`;
-            });
-        }
-
-        async function approveConversion(conversionId, affiliateId, commission) {
-            await fetch(`${API_BASE}/admin-approve-conversion`, {
-                method: 'POST', headers: { 'Content-Type': 'application/json', 'x-admin-key': ADMIN_KEY },
-                body: JSON.stringify({ conversionId, affiliateId, commission })
-            });
-            fetchAdminData();
-        }
-
-        function renderPayments(payments) {
-            const tbody = document.querySelector('#paymentsTable tbody');
-            tbody.innerHTML = '';
-            payments.forEach(p => {
-                tbody.innerHTML += `<tr><td>${p.id.slice(0,8)}</td><td>${p.affiliate?.name || p.affiliate?.email}</td><td>€${p.amount}</td><td>${p.crypto_amount} ${p.crypto_currency}</td><td>${new Date(p.paid_at).toLocaleDateString()}</td></tr>`;
-            });
-        }
-
+        // ========== CARICA AFFILIATI PER PAGAMENTO ==========
         async function loadAffiliatesForPayment() {
-            const res = await fetch(`${API_BASE}/admin-list-affiliates`, { headers: { 'x-admin-key': ADMIN_KEY } });
+            const res = await fetch(`${API_BASE}/admin-list-affiliates`, {
+                headers: { 'x-admin-key': ADMIN_KEY }
+            });
             const affiliates = await res.json();
             const select = document.getElementById('pay_affiliate_id');
             select.innerHTML = '<option value="">-- Scegli affiliato --</option>';
@@ -153,7 +261,9 @@
         document.getElementById('pay_affiliate_id').addEventListener('change', async (e) => {
             const affiliateId = e.target.value;
             if (!affiliateId) return;
-            const res = await fetch(`${API_BASE}/admin-affiliate-conversions?affiliateId=${affiliateId}&status=approved`, { headers: { 'x-admin-key': ADMIN_KEY } });
+            const res = await fetch(`${API_BASE}/admin-affiliate-conversions?affiliateId=${affiliateId}&status=approved`, {
+                headers: { 'x-admin-key': ADMIN_KEY }
+            });
             const conversions = await res.json();
             const selectConv = document.getElementById('pay_conversion_ids');
             selectConv.innerHTML = '';
@@ -172,17 +282,57 @@
             const amountUSD = parseFloat(document.getElementById('pay_amount_usd').value);
             const cryptoCurrency = document.getElementById('pay_crypto_currency').value;
             const cryptoAmount = parseFloat(document.getElementById('pay_crypto_amount').value);
-            if (!affiliateId || conversionIds.length === 0 || isNaN(amountUSD) || isNaN(cryptoAmount)) return alert('Compila tutti i campi');
+            if (!affiliateId || conversionIds.length === 0 || isNaN(amountUSD) || isNaN(cryptoAmount)) {
+                alert('Compila tutti i campi');
+                return;
+            }
             const res = await fetch(`${API_BASE}/admin-update-payment`, {
-                method: 'POST', headers: { 'Content-Type': 'application/json', 'x-admin-key': ADMIN_KEY },
-                body: JSON.stringify({ affiliateId, conversionIds, amount: amountUSD, crypto_currency: cryptoCurrency, crypto_amount: cryptoAmount, method: 'crypto' })
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'x-admin-key': ADMIN_KEY },
+                body: JSON.stringify({
+                    affiliateId, conversionIds, amount: amountUSD,
+                    crypto_currency: cryptoCurrency, crypto_amount: cryptoAmount, method: 'crypto'
+                })
             });
-            if (res.ok) { alert('Pagamento registrato! Ora invia le cripto manualmente.'); fetchAdminData(); }
-            else alert('Errore');
+            if (res.ok) {
+                alert('Pagamento registrato!');
+                loadAffiliates();
+                loadConversions();
+                document.getElementById('pay_amount_usd').value = '';
+                document.getElementById('pay_crypto_amount').value = '';
+            } else {
+                alert('Errore');
+            }
         });
 
-        document.getElementById('logoutBtn').addEventListener('click', () => { window.location.href = 'index.html'; });
-        fetchAdminData();
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            localStorage.removeItem('admin_key');
+            window.location.href = 'index.html';
+        });
+
+        document.getElementById('newProductBtn').addEventListener('click', () => {
+            document.getElementById('productForm').style.display = 'block';
+        });
+
+        document.getElementById('saveProductBtn').addEventListener('click', async () => {
+            const name = document.getElementById('prod_name').value;
+            const description = document.getElementById('prod_description').value;
+            const commission = parseFloat(document.getElementById('prod_commission').value);
+            const url = document.getElementById('prod_url').value;
+            if (!name || !commission) return alert('Nome e commissione obbligatori');
+            await fetch(`${API_BASE}/admin-create-product`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'x-admin-key': ADMIN_KEY },
+                body: JSON.stringify({ name, description, default_commission_rate: commission, base_url: url, is_active: true })
+            });
+            document.getElementById('productForm').style.display = 'none';
+            loadProducts();
+        });
+
+        // Inizializzazione
+        loadAffiliates();
+        loadProducts();
+        loadConversions();
         loadAffiliatesForPayment();
     </script>
 </body>
