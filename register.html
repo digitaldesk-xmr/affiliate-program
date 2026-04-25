@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrazione Affiliato</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <div class="container" style="max-width: 500px; margin: 100px auto;">
+        <div class="card">
+            <h2>📝 Registrati come affiliato</h2>
+            <form id="register-form">
+                <div class="form-group">
+                    <input type="text" id="name" placeholder="Nome e cognome" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="password" placeholder="Password" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="crypto_wallet" placeholder="Wallet crypto (opzionale)">
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">Registrati</button>
+            </form>
+            <div id="message"></div>
+            <p class="text-center" style="margin-top: 20px;">
+                Hai già un account? <a href="login.html">Accedi</a>
+            </p>
+        </div>
+    </div>
+    <script>
+        const SUPABASE_URL = 'https://il-tuo-progetto.supabase.co';
+        const SUPABASE_ANON_KEY = 'la-tua-chiave-anon';
+        const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        document.getElementById('register-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const crypto_wallet = document.getElementById('crypto_wallet').value;
+
+            // Registra l'utente con Supabase Auth
+            const { data: authData, error: authError } = await supabase.auth.signUp({
+                email, password,
+                options: { data: { name, crypto_wallet } }
+            });
+
+            if (authError) {
+                document.getElementById('message').innerHTML = `<div class="alert alert-error">${authError.message}</div>`;
+                return;
+            }
+
+            // Crea il record nella tabella affiliates (se non esiste un trigger automatico)
+            const unique_code = Math.random().toString(36).substring(2, 8).toUpperCase();
+            await fetch('/api/register-affiliate', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    id: authData.user.id,
+                    name, email, 
+                    crypto_wallet, 
+                    unique_code 
+                })
+            });
+
+            document.getElementById('message').innerHTML = '<div class="alert alert-success">✅ Registrazione completata! <a href="login.html">Accedi ora</a></div>';
+        });
+    </script>
+</body>
+</html>
