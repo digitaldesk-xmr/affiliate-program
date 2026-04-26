@@ -3,9 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MarketHub Affiliates | Guadagna con criptovalute</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <title>MarketHub Affiliates</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Inter',sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);color:#1a1a2e;line-height:1.5}
+        .container{max-width:1200px;margin:0 auto;padding:0 24px}
+        h1{font-size:3rem;color:#0f172a;margin-bottom:1rem}
+        .navbar{background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);padding:16px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
+        .logo{font-size:1.6rem;font-weight:800;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;background-clip:text;color:transparent}
+        .nav-links{display:flex;gap:24px;align-items:center}
+        .nav-links a{text-decoration:none;color:#1e293b;font-weight:500}
+        .btn{background:linear-gradient(135deg,#667eea,#764ba2);color:white;padding:12px 28px;border-radius:40px;border:none;cursor:pointer}
+        .btn-secondary{background:rgba(255,255,255,0.2);color:white}
+        .hero{text-align:center;padding:60px 40px;background:white;border-radius:40px;margin:40px 0}
+        .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin:40px 0}
+        .feature-card{background:white;padding:24px;border-radius:24px;text-align:center}
+        .card{background:white;padding:24px;border-radius:24px;margin:40px 0}
+        .form-group{margin-bottom:20px}
+        input{width:100%;padding:14px 18px;border:2px solid #e2e8f0;border-radius:20px}
+        .alert-success{background:#dcfce7;color:#166534;padding:14px;border-radius:16px;margin:16px 0}
+        .alert-error{background:#fee2e2;color:#991b1b;padding:14px;border-radius:16px;margin:16px 0}
+        .text-center{text-align:center}
+        footer{text-align:center;padding:40px 20px;color:rgba(255,255,255,0.8)}
+        @media (max-width:768px){h1{font-size:2rem}.navbar{flex-direction:column}}
+    </style>
 </head>
 <body>
     <nav class="navbar">
@@ -13,137 +35,47 @@
         <div class="nav-links">
             <a href="#features">Vantaggi</a>
             <a href="#register">Registrati</a>
-            <a href="#contact">Contatti</a>
-            <a href="affiliate-dashboard.html" class="btn-secondary" style="padding: 8px 20px;">Accedi</a>
+            <a href="login.html" class="btn-secondary" style="padding:8px 20px">Accedi</a>
         </div>
     </nav>
-
     <div class="container">
         <div class="hero">
             <h1>Guadagna con il programma affiliati di MarketHub</h1>
-            <p>Commissioni fino al 20% • Cookie 30 giorni • Pagamenti in criptovalute</p>
-            <a href="#register" class="cta-button">Inizia ora →</a>
+            <p>Commissioni fino al 20% • Pagamenti in criptovalute</p>
+            <a href="#register" class="btn">Inizia ora →</a>
         </div>
-
         <div id="features" class="features">
-            <div class="feature-card">
-                <div class="feature-icon" style="font-size: 3rem;">💰</div>
-                <h3>Commissioni generose</h3>
-                <p>Fino al 20% su ogni vendita. Più vendi, più guadagni.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon" style="font-size: 3rem;">🔗</div>
-                <h3>Link personalizzati</h3>
-                <p>Crea link per ogni prodotto e monitora le performance.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon" style="font-size: 3rem;">📊</div>
-                <h3>Dashboard in tempo reale</h3>
-                <p>Monitora click, conversioni e guadagni in un colpo d'occhio.</p>
-            </div>
+            <div class="feature-card">💰 Commissioni generose</div>
+            <div class="feature-card">🔗 Link personalizzati</div>
+            <div class="feature-card">📊 Dashboard in tempo reale</div>
         </div>
-
-        <!-- REGISTRAZIONE -->
-        <div id="register" class="card" style="margin: 40px 0;">
+        <div id="register" class="card">
             <h2 class="text-center">Diventa affiliato</h2>
-            <p class="text-center" style="margin-bottom: 24px; color: #475569;">Registrati gratuitamente in 30 secondi</p>
-            <form id="affiliate-registration">
-                <div class="form-group">
-                    <input type="text" name="name" placeholder="Nome e cognome" required>
-                </div>
-                <div class="form-group">
-                    <input type="email" name="email" placeholder="Email" required>
-                </div>
-                <div class="form-group">
-                    <input type="text" name="crypto_wallet" placeholder="Indirizzo wallet crypto (USDT/BTC/ETH) - opzionale">
-                </div>
-                <button type="submit" class="btn" style="width: 100%;">Registrati →</button>
+            <form id="register-form">
+                <div class="form-group"><input type="text" id="name" placeholder="Nome e cognome" required></div>
+                <div class="form-group"><input type="email" id="email" placeholder="Email" required></div>
+                <div class="form-group"><input type="password" id="password" placeholder="Password" required></div>
+                <div class="form-group"><input type="text" id="crypto_wallet" placeholder="Wallet crypto (opzionale)"></div>
+                <button type="submit" class="btn" style="width:100%">Registrati →</button>
             </form>
-            <div id="register-message" style="margin-top: 20px;"></div>
-        </div>
-
-        <!-- CONTATTI -->
-        <div id="contact" class="card" style="margin: 40px 0;">
-            <h2 class="text-center">Contattaci</h2>
-            <p class="text-center" style="margin-bottom: 24px;">Hai domande? Scrivici, ti risponderemo al più presto.</p>
-            <form id="contact-form">
-                <div class="form-group">
-                    <input type="text" name="name" placeholder="Nome e cognome" required>
-                </div>
-                <div class="form-group">
-                    <input type="email" name="email" placeholder="La tua email" required>
-                </div>
-                <div class="form-group">
-                    <textarea name="message" rows="4" placeholder="Il tuo messaggio..." required></textarea>
-                </div>
-                <button type="submit" class="btn" style="width: 100%;">Invia messaggio</button>
-            </form>
-            <div id="contact-message" style="margin-top: 20px;"></div>
-            <div class="text-center" style="margin-top: 24px;">
-                <p>📧 Email: <a href="mailto:ops.channel@proton.me">ops.channel@proton.me</a></p>
-            </div>
+            <div id="message"></div>
         </div>
     </div>
-
-    <footer>
-        <p>© 2025 MarketHub Affiliates – Pagamenti in criptovalute</p>
-        <p><a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Termini di servizio</a> | <a href="reset-password.html">Reset password</a></p>
-    </footer>
-
+    <footer>© 2025 MarketHub Affiliates – Pagamenti in criptovalute</footer>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        const API_BASE = window.location.origin + '/api';
-
-        document.getElementById('affiliate-registration').addEventListener('submit', async (e) => {
+        const SUPABASE_URL = 'https://il-tuo-progetto.supabase.co';
+        const SUPABASE_ANON_KEY = 'la-tua-chiave-anon';
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        document.getElementById('register-form').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const formData = new FormData(e.target);
-            const data = {
-                name: formData.get('name'),
-                email: formData.get('email'),
-                crypto_wallet: formData.get('crypto_wallet')
-            };
-            try {
-                const response = await fetch(`${API_BASE}/register-affiliate`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                });
-                const result = await response.json();
-                if (result.success) {
-                    document.getElementById('register-message').innerHTML = 
-                        '<div class="alert alert-success">✅ Registrazione completata! Il tuo codice affiliato è: <strong>' + result.code + '</strong><br><a href="affiliate-dashboard.html?code=' + result.code + '">Accedi alla dashboard</a></div>';
-                    e.target.reset();
-                } else {
-                    document.getElementById('register-message').innerHTML = '<div class="alert alert-error">❌ ' + result.error + '</div>';
-                }
-            } catch (err) {
-                document.getElementById('register-message').innerHTML = '<div class="alert alert-error">❌ Errore di connessione</div>';
-            }
-        });
-
-        document.getElementById('contact-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const formData = new FormData(e.target);
-            const data = {
-                name: formData.get('name'),
-                email: formData.get('email'),
-                message: formData.get('message')
-            };
-            try {
-                const response = await fetch(`${API_BASE}/send-contact`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                });
-                const result = await response.json();
-                if (result.success) {
-                    document.getElementById('contact-message').innerHTML = '<div class="alert alert-success">✅ Messaggio inviato! Ti risponderemo al più presto.</div>';
-                    e.target.reset();
-                } else {
-                    document.getElementById('contact-message').innerHTML = '<div class="alert alert-error">❌ ' + result.error + '</div>';
-                }
-            } catch (err) {
-                document.getElementById('contact-message').innerHTML = '<div class="alert alert-error">❌ Errore di invio. Contattaci direttamente su ops.channel@proton.me</div>';
-            }
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const crypto_wallet = document.getElementById('crypto_wallet').value;
+            const { error } = await supabase.auth.signUp({ email, password, options: { data: { name, crypto_wallet } } });
+            if (error) document.getElementById('message').innerHTML = `<div class="alert-error">❌ ${error.message}</div>`;
+            else document.getElementById('message').innerHTML = '<div class="alert-success">✅ Registrato! <a href="login.html">Accedi</a></div>';
         });
     </script>
 </body>
