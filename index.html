@@ -3,30 +3,200 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MarketHub Affiliates</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>MarketHub Affiliates | Guadagna con criptovalute</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:'Inter',sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);color:#1a1a2e;line-height:1.5}
-        .container{max-width:1200px;margin:0 auto;padding:0 24px}
-        h1{font-size:3rem;color:#0f172a;margin-bottom:1rem}
-        .navbar{background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);padding:16px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
-        .logo{font-size:1.6rem;font-weight:800;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;background-clip:text;color:transparent}
-        .nav-links{display:flex;gap:24px;align-items:center}
-        .nav-links a{text-decoration:none;color:#1e293b;font-weight:500}
-        .btn{background:linear-gradient(135deg,#667eea,#764ba2);color:white;padding:12px 28px;border-radius:40px;border:none;cursor:pointer}
-        .btn-secondary{background:rgba(255,255,255,0.2);color:white}
-        .hero{text-align:center;padding:60px 40px;background:white;border-radius:40px;margin:40px 0}
-        .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin:40px 0}
-        .feature-card{background:white;padding:24px;border-radius:24px;text-align:center}
-        .card{background:white;padding:24px;border-radius:24px;margin:40px 0}
-        .form-group{margin-bottom:20px}
-        input{width:100%;padding:14px 18px;border:2px solid #e2e8f0;border-radius:20px}
-        .alert-success{background:#dcfce7;color:#166534;padding:14px;border-radius:16px;margin:16px 0}
-        .alert-error{background:#fee2e2;color:#991b1b;padding:14px;border-radius:16px;margin:16px 0}
-        .text-center{text-align:center}
-        footer{text-align:center;padding:40px 20px;color:rgba(255,255,255,0.8)}
-        @media (max-width:768px){h1{font-size:2rem}.navbar{flex-direction:column}}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #1a1a2e;
+            line-height: 1.5;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 1rem;
+        }
+        h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 1.5rem;
+        }
+        h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #0f172a;
+            margin-bottom: 0.75rem;
+        }
+        .btn, button, .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .btn:hover, button:hover, .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+            background: linear-gradient(135deg, #764ba2, #667eea);
+        }
+        .btn-secondary {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        .navbar {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            padding: 16px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #1e293b;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover {
+            color: #667eea;
+        }
+        .hero {
+            text-align: center;
+            padding: 60px 40px;
+            background: white;
+            border-radius: 40px;
+            margin: 40px 0;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+        }
+        .hero p {
+            font-size: 1.2rem;
+            color: #1e293b;
+            margin-bottom: 2rem;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin: 40px 0;
+        }
+        .feature-card, .card, .stat-card, .product-card, .admin-card {
+            background: white;
+            padding: 24px;
+            border-radius: 24px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+        .feature-card:hover, .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 30px rgba(0,0,0,0.1);
+        }
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e2e8f0;
+            border-radius: 20px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: white;
+        }
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102,126,234,0.2);
+        }
+        .alert {
+            padding: 14px 18px;
+            border-radius: 16px;
+            margin: 16px 0;
+        }
+        .alert-success {
+            background: #dcfce7;
+            color: #166534;
+            border-left: 4px solid #22c55e;
+        }
+        .alert-error {
+            background: #fee2e2;
+            color: #991b1b;
+            border-left: 4px solid #ef4444;
+        }
+        .text-center {
+            text-align: center;
+        }
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: rgba(255,255,255,0.8);
+            margin-top: 40px;
+        }
+        footer a {
+            color: white;
+            text-decoration: none;
+        }
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .hero { padding: 40px 20px; }
+            .navbar { flex-direction: column; text-align: center; }
+            .features { grid-template-columns: 1fr; }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .feature-card, .hero {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        .feature-card:nth-child(2) { animation-delay: 0.2s; }
+        .feature-card:nth-child(3) { animation-delay: 0.4s; }
     </style>
 </head>
 <body>
@@ -35,47 +205,85 @@
         <div class="nav-links">
             <a href="#features">Vantaggi</a>
             <a href="#register">Registrati</a>
-            <a href="login.html" class="btn-secondary" style="padding:8px 20px">Accedi</a>
+            <a href="login.html" class="btn-secondary" style="padding: 8px 20px;">Accedi</a>
         </div>
     </nav>
+
     <div class="container">
         <div class="hero">
             <h1>Guadagna con il programma affiliati di MarketHub</h1>
-            <p>Commissioni fino al 20% • Pagamenti in criptovalute</p>
-            <a href="#register" class="btn">Inizia ora →</a>
+            <p>Commissioni fino al 20% • Cookie 30 giorni • Pagamenti in criptovalute</p>
+            <a href="#register" class="cta-button">Inizia ora →</a>
         </div>
+
         <div id="features" class="features">
-            <div class="feature-card">💰 Commissioni generose</div>
-            <div class="feature-card">🔗 Link personalizzati</div>
-            <div class="feature-card">📊 Dashboard in tempo reale</div>
+            <div class="feature-card">
+                <div class="feature-icon">💰</div>
+                <h3>Commissioni generose</h3>
+                <p>Fino al 20% su ogni vendita generata. Più vendi, più guadagni.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔗</div>
+                <h3>Link personalizzati</h3>
+                <p>Crea link per ogni prodotto, pagina o offerta speciale.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Dashboard in tempo reale</h3>
+                <p>Monitora click, conversioni e guadagni in un colpo d'occhio.</p>
+            </div>
         </div>
+
         <div id="register" class="card">
             <h2 class="text-center">Diventa affiliato</h2>
+            <p class="text-center" style="margin-bottom: 24px; color: #475569;">Registrati gratuitamente in 30 secondi</p>
             <form id="register-form">
-                <div class="form-group"><input type="text" id="name" placeholder="Nome e cognome" required></div>
-                <div class="form-group"><input type="email" id="email" placeholder="Email" required></div>
-                <div class="form-group"><input type="password" id="password" placeholder="Password" required></div>
-                <div class="form-group"><input type="text" id="crypto_wallet" placeholder="Wallet crypto (opzionale)"></div>
-                <button type="submit" class="btn" style="width:100%">Registrati →</button>
+                <div class="form-group">
+                    <input type="text" id="name" placeholder="Nome e cognome" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="password" placeholder="Password" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="crypto_wallet" placeholder="Indirizzo wallet crypto (USDT/BTC/ETH) - opzionale">
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">Registrati →</button>
             </form>
             <div id="message"></div>
+            <p class="text-center" style="margin-top: 20px;">Hai già un account? <a href="login.html">Accedi</a></p>
         </div>
     </div>
-    <footer>© 2025 MarketHub Affiliates – Pagamenti in criptovalute</footer>
+
+    <footer>
+        <p>© 2025 MarketHub Affiliates – Pagamenti in criptovalute</p>
+        <p><a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Termini di servizio</a></p>
+    </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         const SUPABASE_URL = 'https://il-tuo-progetto.supabase.co';
         const SUPABASE_ANON_KEY = 'la-tua-chiave-anon';
         const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
         document.getElementById('register-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             const crypto_wallet = document.getElementById('crypto_wallet').value;
-            const { error } = await supabase.auth.signUp({ email, password, options: { data: { name, crypto_wallet } } });
-            if (error) document.getElementById('message').innerHTML = `<div class="alert-error">❌ ${error.message}</div>`;
-            else document.getElementById('message').innerHTML = '<div class="alert-success">✅ Registrato! <a href="login.html">Accedi</a></div>';
+
+            const { error } = await supabase.auth.signUp({
+                email, password,
+                options: { data: { name, crypto_wallet } }
+            });
+            if (error) {
+                document.getElementById('message').innerHTML = `<div class="alert alert-error">${error.message}</div>`;
+            } else {
+                document.getElementById('message').innerHTML = '<div class="alert alert-success">✅ Registrazione completata! <a href="login.html">Accedi ora</a></div>';
+            }
         });
     </script>
 </body>
