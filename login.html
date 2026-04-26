@@ -4,44 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Affiliato</title>
-    <link rel="stylesheet" href="css/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Inter',sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);min-height:100vh;display:flex;align-items:center;justify-content:center}
+        .card{background:white;padding:40px;border-radius:32px;max-width:450px;width:100%;margin:20px}
+        h2{margin-bottom:24px;color:#0f172a}
+        .form-group{margin-bottom:20px}
+        input{width:100%;padding:14px 18px;border:2px solid #e2e8f0;border-radius:20px}
+        .btn{background:linear-gradient(135deg,#667eea,#764ba2);color:white;padding:12px 28px;border-radius:40px;border:none;cursor:pointer;width:100%}
+        .alert-error{background:#fee2e2;color:#991b1b;padding:14px;border-radius:16px;margin-top:16px}
+        .text-center{text-align:center;margin-top:20px}
+        a{color:#667eea}
+    </style>
 </head>
 <body>
-    <div class="container" style="max-width: 500px; margin: 100px auto;">
-        <div class="card">
-            <h2>🔐 Login Affiliato</h2>
-            <form id="login-form">
-                <div class="form-group">
-                    <input type="email" id="email" placeholder="Email" required>
-                </div>
-                <div class="form-group">
-                    <input type="password" id="password" placeholder="Password" required>
-                </div>
-                <button type="submit" class="btn" style="width: 100%;">Accedi</button>
-            </form>
-            <div id="message"></div>
-            <p class="text-center" style="margin-top: 20px;">
-                Non hai un account? <a href="register.html">Registrati</a><br>
-                <a href="reset-password.html">Password dimenticata?</a>
-            </p>
-        </div>
+    <div class="card">
+        <h2 class="text-center">🔐 Login</h2>
+        <form id="login-form">
+            <div class="form-group"><input type="email" id="email" placeholder="Email" required></div>
+            <div class="form-group"><input type="password" id="password" placeholder="Password" required></div>
+            <button type="submit" class="btn">Accedi</button>
+        </form>
+        <div id="message"></div>
+        <p class="text-center">Non hai un account? <a href="register.html">Registrati</a></p>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         const SUPABASE_URL = 'https://il-tuo-progetto.supabase.co';
         const SUPABASE_ANON_KEY = 'la-tua-chiave-anon';
-        const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         document.getElementById('login-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-
             const { data, error } = await supabase.auth.signInWithPassword({ email, password });
             if (error) {
-                document.getElementById('message').innerHTML = `<div class="alert alert-error">${error.message}</div>`;
+                document.getElementById('message').innerHTML = `<div class="alert-error">❌ ${error.message}</div>`;
             } else {
-                // Salva la sessione e reindirizza
                 localStorage.setItem('affiliate_session', JSON.stringify(data.session));
                 window.location.href = 'affiliate-dashboard.html';
             }
