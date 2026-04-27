@@ -53,12 +53,11 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        const SUPABASE_URL = 'https://il-tuo-progetto.supabase.co';
-        const SUPABASE_ANON_KEY = 'sb_publishable_la_tua_chiave';
+        const SUPABASE_URL = 'https://wwhagqzbqydicoyvrbjo.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_eyYrHU1K4-SD9bgC37S2rw_jpwCywRD';
         const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         const API_BASE = window.location.origin + '/api';
 
-        // Verifica sessione all'avvio
         async function checkAuth() {
             const { data: { session } } = await supabase.auth.getSession();
             if (!session) {
@@ -147,7 +146,6 @@
 
         document.getElementById('logoutBtn').addEventListener('click', async () => { await supabase.auth.signOut(); window.location.href = 'login.html'; });
 
-        // Avvio
         (async () => {
             await checkAuth();
             await loadStats();
