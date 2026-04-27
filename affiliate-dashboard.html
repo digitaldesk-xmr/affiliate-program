@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Affiliato</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
         body{font-family:'Inter',sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);color:#1a1a2e}
@@ -32,37 +32,41 @@
             <a href="#" id="logoutBtn">Logout</a>
         </div>
     </nav>
-
     <div class="container">
         <h1>📊 La tua dashboard</h1>
-
         <div class="stats-grid">
             <div class="stat-card"><h3>Click totali</h3><div id="total-clicks">0</div></div>
             <div class="stat-card"><h3>Conversioni</h3><div id="total-conversions">0</div></div>
             <div class="stat-card"><h3>Guadagni</h3><div id="total-earnings">€0</div></div>
             <div class="stat-card"><h3>Commissione</h3><div id="commission-rate">0%</div></div>
         </div>
-
         <div class="stat-card">
             <h3>💰 Il tuo wallet crypto</h3>
             <input type="text" id="crypto_wallet" placeholder="Indirizzo wallet (USDT/BTC/ETH)">
             <button id="updateWalletBtn" class="btn">Aggiorna wallet</button>
             <div id="walletMessage"></div>
         </div>
-
         <h2>📦 Prodotti da promuovere</h2>
         <div id="productsContainer" class="products-grid">Caricamento...</div>
     </div>
-
-    <footer>© 2025 MarketHub Affiliates – Pagamenti in criptovalute</footer>
+    <footer>© 2025 MarketHub Affiliates</footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        const SUPABASE_URL = 'https://wwhagqzbqydicoyvrbjo.supabase.co';
-        const SUPABASE_ANON_KEY = 'sb_publishable_eyYrHU1K4-SD9bgC37S2rw_jpwCywRD';
+        const SUPABASE_URL = 'https://il-tuo-progetto.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_la_tua_chiave';
         const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
         const API_BASE = window.location.origin + '/api';
-        let currentUser = null;
+
+        // Verifica sessione all'avvio
+        async function checkAuth() {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (!session) {
+                window.location.href = 'login.html';
+                return null;
+            }
+            return session;
+        }
 
         async function getToken() {
             const { data: { session } } = await supabase.auth.getSession();
@@ -103,7 +107,7 @@
                 card.innerHTML = `
                     <h3>${p.name}</h3>
                     <p>${p.description || ''}</p>
-                    <p class="commission">💰 Commissione: ${p.default_commission_rate}%</p>
+                    <p>💰 Commissione: ${p.default_commission_rate}%</p>
                     <button class="btn" data-id="${p.id}">🔗 Genera link Telegram</button>
                     <div class="affiliate-link" id="link-${p.id}" style="display:none;">
                         <input type="text" readonly id="input-${p.id}" style="width:100%;" onclick="this.select();">
@@ -112,7 +116,6 @@
                 `;
                 container.appendChild(card);
             });
-
             document.querySelectorAll('.product-card .btn[data-id]').forEach(btn => {
                 btn.addEventListener('click', async () => {
                     const productId = btn.dataset.id;
@@ -127,14 +130,12 @@
                     btn.innerText = '🔗 Genera link Telegram';
                 });
             });
-
             document.querySelectorAll('[data-copy]').forEach(btn => {
                 btn.addEventListener('click', () => {
                     const id = btn.dataset.copy;
-                    const input = document.getElementById(`input-${id}`);
-                    input.select();
+                    document.getElementById(`input-${id}`).select();
                     document.execCommand('copy');
-                    alert('Link copiato negli appunti! Condividilo su Telegram');
+                    alert('Link copiato!');
                 });
             });
         }
@@ -146,8 +147,12 @@
 
         document.getElementById('logoutBtn').addEventListener('click', async () => { await supabase.auth.signOut(); window.location.href = 'login.html'; });
 
-        loadStats();
-        loadProducts();
+        // Avvio
+        (async () => {
+            await checkAuth();
+            await loadStats();
+            await loadProducts();
+        })();
     </script>
 </body>
 </html>
