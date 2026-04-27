@@ -3,72 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MarketHub Affiliates</title>
+    <title>MarketHub Affiliates | Registrati</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:'Inter',sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);color:#1a1a2e;line-height:1.5}
-        .container{max-width:1200px;margin:0 auto;padding:0 24px}
-        h1{font-size:3rem;color:#0f172a;margin-bottom:1rem}
-        .navbar{background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);padding:16px 32px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
-        .logo{font-size:1.6rem;font-weight:800;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;background-clip:text;color:transparent}
-        .nav-links{display:flex;gap:24px;align-items:center}
-        .nav-links a{text-decoration:none;color:#1e293b;font-weight:500}
-        .btn{background:linear-gradient(135deg,#667eea,#764ba2);color:white;padding:12px 28px;border-radius:40px;border:none;cursor:pointer}
-        .btn-secondary{background:rgba(255,255,255,0.2);color:white}
-        .hero{text-align:center;padding:60px 40px;background:white;border-radius:40px;margin:40px 0}
-        .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin:40px 0}
-        .feature-card{background:white;padding:24px;border-radius:24px;text-align:center}
-        .card{background:white;padding:24px;border-radius:24px;margin:40px 0}
+        body{font-family:'Inter',sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);min-height:100vh}
+        .container{max-width:500px;margin:0 auto;padding:40px 20px}
+        .card{background:white;border-radius:32px;padding:40px;box-shadow:0 25px 50px -12px rgba(0,0,0,0.25)}
+        h1{font-size:2rem;margin-bottom:8px;color:#0f172a}
+        .subtitle{color:#475569;margin-bottom:32px;text-align:center}
         .form-group{margin-bottom:20px}
-        input{width:100%;padding:14px 18px;border:2px solid #e2e8f0;border-radius:20px}
-        .alert-success{background:#dcfce7;color:#166534;padding:14px;border-radius:16px;margin:16px 0}
-        .alert-error{background:#fee2e2;color:#991b1b;padding:14px;border-radius:16px;margin:16px 0}
-        .text-center{text-align:center}
-        footer{text-align:center;padding:40px 20px;color:rgba(255,255,255,0.8)}
-        @media (max-width:768px){h1{font-size:2rem}.navbar{flex-direction:column}}
+        input{width:100%;padding:14px 18px;border:2px solid #e2e8f0;border-radius:20px;font-size:1rem}
+        input:focus{outline:none;border-color:#667eea}
+        .btn{background:linear-gradient(135deg,#667eea,#764ba2);color:white;padding:14px;border-radius:40px;border:none;cursor:pointer;width:100%;font-weight:600}
+        .btn:hover{transform:translateY(-2px);opacity:0.9}
+        .alert-error{background:#fee2e2;color:#991b1b;padding:14px;border-radius:16px;margin-top:16px}
+        .alert-success{background:#dcfce7;color:#166534;padding:14px;border-radius:16px;margin-top:16px}
+        .text-center{text-align:center;margin-top:20px}
+        a{color:#667eea;text-decoration:none}
+        footer{text-align:center;padding:20px;color:white}
     </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="logo">MarketHub<span style="color:#2a5298">Affiliates</span></div>
-        <div class="nav-links">
-            <a href="#features">Vantaggi</a>
-            <a href="#register">Registrati</a>
-            <a href="login.html" class="btn-secondary" style="padding:8px 20px">Accedi</a>
-        </div>
-    </nav>
-
     <div class="container">
-        <div class="hero">
-            <h1>Guadagna con il programma affiliati</h1>
-            <p>Commissioni fino al 20% • Pagamenti in criptovalute</p>
-            <a href="#register" class="btn">Inizia ora →</a>
-        </div>
-        <div id="features" class="features">
-            <div class="feature-card">💰 Commissioni generose</div>
-            <div class="feature-card">🔗 Link personalizzati</div>
-            <div class="feature-card">📊 Dashboard in tempo reale</div>
-        </div>
-        <div id="register" class="card">
-            <h2 class="text-center">Diventa affiliato</h2>
+        <div class="card">
+            <h1 class="text-center">MarketHub Affiliates</h1>
+            <p class="subtitle">Registrati e inizia a guadagnare</p>
             <form id="register-form">
-                <div class="form-group"><input type="text" id="name" placeholder="Nome e cognome" required></div>
-                <div class="form-group"><input type="email" id="email" placeholder="Email" required></div>
-                <div class="form-group"><input type="password" id="password" placeholder="Password" required></div>
-                <div class="form-group"><input type="text" id="crypto_wallet" placeholder="Wallet crypto (opzionale)"></div>
-                <button type="submit" class="btn" style="width:100%">Registrati →</button>
+                <div class="form-group">
+                    <input type="text" id="name" placeholder="Nome e cognome" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" id="password" placeholder="Password" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="crypto_wallet" placeholder="Wallet crypto (USDT/BTC/ETH) - opzionale">
+                </div>
+                <button type="submit" class="btn">Registrati</button>
             </form>
             <div id="message"></div>
-            <p class="text-center" style="margin-top:20px">Hai già un account? <a href="login.html">Accedi</a></p>
+            <p class="text-center">Hai già un account? <a href="login.html">Accedi</a></p>
         </div>
     </div>
-    <footer>© 2025 MarketHub Affiliates</footer>
+    <footer>© 2025 MarketHub Affiliates – Pagamenti in criptovalute</footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        const SUPABASE_URL = 'https://il-tuo-progetto.supabase.co';  // <-- SOSTITUISCI
-        const SUPABASE_ANON_KEY = 'sb_publishable_eyYrHU1K4-SD9bgC37S2rw_jpwCywRD';            // <-- SOSTITUISCI
+        const SUPABASE_URL = 'https://il-tuo-progetto.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_la_tua_chiave';
         const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
         document.getElementById('register-form').addEventListener('submit', async (e) => {
@@ -78,15 +63,16 @@
             const password = document.getElementById('password').value;
             const crypto_wallet = document.getElementById('crypto_wallet').value;
 
-            const { error } = await supabase.auth.signUp({
+            const { data, error } = await supabase.auth.signUp({
                 email, password,
                 options: { data: { name, crypto_wallet } }
             });
+
             if (error) {
                 document.getElementById('message').innerHTML = `<div class="alert-error">❌ ${error.message}</div>`;
             } else {
-                document.getElementById('message').innerHTML = '<div class="alert-success">✅ Registrazione completata! Reindirizzamento...</div>';
-                setTimeout(() => window.location.href = 'login.html', 2000);
+                document.getElementById('message').innerHTML = '<div class="alert-success">✅ Registrazione completata! Reindirizzamento al login...</div>';
+                setTimeout(() => { window.location.href = 'login.html'; }, 2000);
             }
         });
     </script>
